@@ -1,0 +1,128 @@
+﻿using UnityEngine;
+using System;
+using System.IO;
+using System.Collections;
+using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Text;
+using DataSpace;
+using CardCollections;
+using TileCollections;
+
+
+public class DataTools
+{
+
+
+    public  string UTF8ByteArrayToString(byte[] gameData)
+    {
+        UTF8Encoding encoding = new UTF8Encoding();
+        string constructedString = encoding.GetString(gameData);
+        return (constructedString);
+    }
+    //String -> byte
+    public byte[] StringToUTF8ByteArray(string pxmlString)
+    {
+        UTF8Encoding encoding = new UTF8Encoding();
+        byte[] byteArray = encoding.GetBytes(pxmlString);
+        return byteArray;
+    }
+    //세이브 할때 사용
+
+    private XmlSerializer InitType(string type)
+    {
+        XmlSerializer xs = null;
+        switch (type)
+        {
+            case "Player":
+                xs = new XmlSerializer(typeof(PlayerData));
+                break;
+            case "BattleCardList":
+                xs = new XmlSerializer(typeof(TileCard));
+                break;
+            case "AreaCardList":
+                xs = new XmlSerializer(typeof(TileCard));
+                break;
+            case "MonsterList":
+                xs = new XmlSerializer(typeof(MonsterDataBase));
+                break;
+            case "ArmorList":
+                break;
+            case "WeaponList":
+                break;
+            case "ItemList":
+                xs = new XmlSerializer(typeof(ItemList));
+                break;
+            case "MapData":
+                xs = new XmlSerializer(typeof(MapData));
+                break;
+            case "CardArea":
+                break;
+            case "Villiage":
+                break;
+            case "SaveData":
+                break;
+            default:
+                xs = xs = new XmlSerializer(typeof(PlayerData));
+                Debug.LogError("Error!!");
+                break;
+        }
+
+        return xs;
+    }
+    
+    public string SerlializeObject(object pObject, string type)
+    {
+        string xmlizedString = null;
+        MemoryStream mStream = new MemoryStream();
+        XmlSerializer xs = InitType(type);
+
+        XmlTextWriter textWriter = new XmlTextWriter(mStream, Encoding.UTF8);
+        xs.Serialize(textWriter, pObject);
+        mStream = (MemoryStream)textWriter.BaseStream;
+        xmlizedString = UTF8ByteArrayToString(mStream.ToArray());
+        return xmlizedString;
+       
+    }
+ 
+    public  object DeserializeObject(string pXmlizedString, string type)
+    {
+        //XmlSerializer xs;
+        XmlSerializer xs = InitType(type);
+        MemoryStream mStream = new MemoryStream(StringToUTF8ByteArray(pXmlizedString));
+        XmlTextWriter textWriter = new XmlTextWriter(mStream, Encoding.UTF8);
+        return xs.Deserialize(mStream);
+    }
+ 
+        
+    public void CreateXML(string _data, string _FileName, string _FileLocation)
+    {
+        StreamWriter writer;
+        FileInfo t = new FileInfo(_FileLocation + "\\" + _FileName);
+            if(!t.Exists)
+            {
+                writer = t.CreateText();
+            }
+            else
+            {
+                t.Delete();
+                writer = t.CreateText();
+            }
+            writer.Write(_data);
+            writer.Close();
+    }
+
+    public string LoadXML(string _data, string _FileName, string _FileLocation)
+    {
+
+        StreamReader reader = File.OpenText(_FileLocation + "\\" + _FileName);
+        string _info = reader.ReadToEnd();
+        reader.Close();
+        _data = _info;
+        return _data;
+    }
+
+}
+
+
