@@ -70,6 +70,7 @@ public class InGameMgr :MonoBehaviour {
         isBuild = false;                   //카드를 설치했는가?
 
         gState = InGameState.SetGame;
+       
     }
 
 
@@ -87,10 +88,12 @@ public class InGameMgr :MonoBehaviour {
 
     private void SetGame()
     {
+        
 
-        if(GameManager.instance.loadCount == 0)
+        if (GameManager.instance.loadCount == 0)
         {
             GameManager.instance._player = _playerObj.GetComponent<Player>();
+            GameManager.instance.LoadPlayerData();
             Debug.Log("처음");
             buildType = TileType.NONE;
             GameManager.instance._player.InGameInit();
@@ -100,9 +103,9 @@ public class InGameMgr :MonoBehaviour {
         }
         else
         {
-
+            
         }
-
+        
         gState = InGameState.PopCard;
     }
 

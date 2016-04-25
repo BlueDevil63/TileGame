@@ -14,17 +14,34 @@ namespace TileCollections
         DUNGEON,
         FOREST,
         CAVE,
-        VILLIAGE,
+        VILLIAGE
+    }
+
+    public struct Vec3
+    {
+        float x;
+        float y;
+        float z;
     }
 
     [System.Serializable]
     public class MapTile
     {
+        public struct Vec3
+        {
+            float x;
+            float y;
+            float z;
+        }
         // 직접 추가
         [XmlElement("index_x")]
         public int index_x;
         [XmlElement("index_x")]
         public int index_z;
+
+    
+       // public Vector3 v_pos;
+        public Vec3 pos;
 
         [XmlElement("cost")]
         public int cost;
@@ -42,11 +59,13 @@ namespace TileCollections
         {
             index_x = 0;
             index_z = 0;
+            cost = 0;
             build = false;
             type = TileType.VOID;
         }
-        public MapTile (int x, int z,  bool b, TileType t)
+        public MapTile (int x, int z,  bool b, int c, TileType t)
         {
+            cost = c;
             index_x = x;
             index_z = z;
             build = b;

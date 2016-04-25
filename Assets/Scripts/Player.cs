@@ -9,8 +9,8 @@ public class Player : MonoBehaviour {
     public string charName;
     public float level;
     public float def;
-    public float hp;
-    public float mp;
+    public float maxHp;
+    public float maxMp;
     public Deck deck;
     public List<TileCard> handCard;
     public BattleDeck battleDeck;
@@ -32,11 +32,11 @@ public class Player : MonoBehaviour {
         //pData = new PlayerData("BlueTeam", 1, 4.5f, 5.5f, 4.0f);
 
         //GenerateData();
-       charName = "BlueDevil";
-        level = 1;
-        def = 1.5f;
-        hp = 1.5f;
-        mp = 1.5f;
+       //charName = "BlueDevil";
+       // level = 1;
+       // def = 1.5f;
+       // MaxHp = 1.5f;
+       // MaxMp = 1.5f;
         deck = new Deck();
         handCard = new List<TileCard>();
         battleDeck = new BattleDeck();

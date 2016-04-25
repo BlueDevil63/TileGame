@@ -113,16 +113,61 @@ public class DataTools
             writer.Close();
     }
 
-    public string LoadXML(string _data, string _FileName, string _FileLocation)
+    public string LoadXML(string _FileName, string _FileLocation)
     {
 
         StreamReader reader = File.OpenText(_FileLocation + "\\" + _FileName);
         string _info = reader.ReadToEnd();
         reader.Close();
-        _data = _info;
+        string _data = _info;
         return _data;
     }
 
+
+
+
+    //public PlayerData LoadPlayerData(string name, string path)
+    //{
+    //    PlayerData _pData = new PlayerData();
+    //    XmlSerializer deserializer = new XmlSerializer(typeof(PlayerData));
+    //    TextAsset _TAsset = (TextAsset)Resources.Load("Data/" + name);
+    //    TextReader reader = new StreamReader(_TAsset.text);
+    //    _pData = (PlayerData)deserializer.Deserialize(reader);
+    //    reader.Close();
+
+    //}
+
+
+//    public StorageData LoadStorageData(string playerName)
+//    {
+//        StorageData _pData = new StorageData();
+
+//        if (playerName == string.Empty)
+//        {
+//            XmlSerializer deserializer = new XmlSerializer(typeof(StorageData));
+//            TextAsset textAsset = (TextAsset)Resources.Load("Data/StorageData");
+//            TextReader reader = new StringReader(textAsset.text);
+//            _pData = (StorageData)deserializer.Deserialize(reader);
+//            reader.Close();
+//        }
+//        else
+//        {
+//            string name = "StorageData";
+//#if UNITY_EDITOR
+//            StreamReader reader2 = File.OpenText(Application.dataPath + "/Resources/Data/Player/" + playerName + name + ".xml");
+//#else
+//        StreamReader reader2 = File.OpenText(Application.dataPath + "/Resources/" + playerName+ name + ".xml");
+//#endif
+//            string _info = reader2.ReadToEnd();
+//            reader2.Close();
+//            string data = _info;
+//            _pData = (StorageData)DeserializeObject(data, "storage");
+//        }
+
+//        //#endif
+//        return _pData;
+
+//    }
 }
 
 

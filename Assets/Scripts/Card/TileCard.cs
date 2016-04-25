@@ -37,5 +37,20 @@ namespace CardCollections
 
         }
     }
+
+    namespace CardEvent
+    {
+        namespace TileCardEvent
+        { 
+            public class Move
+            {
+                [XmlElement("eventID")]
+                int eventID;
+                [XmlElement("effectAdress")]
+                string effectAdress;
+            }
+
+        }
+} 
 }
 
