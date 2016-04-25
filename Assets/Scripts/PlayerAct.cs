@@ -16,9 +16,9 @@ public class PlayerAct : MonoBehaviour {
         massageObject.SetActive(false);
         mComfirm = false;
     }
-    public bool SelcetAct(Player player, MapData mdata)
+    public bool SelcetAct(Player player, TileMapdData mdata)
     {
-        switch( mdata.data[ player.pos_x * mdata.size_x +  player.pos_y -1].type)
+        switch( mdata.data[ player.pos_x ,player.pos_y].type)
         {
             case TileType.VILLIAGE :
                 massage.text = "마을에 도착하였습니다.";

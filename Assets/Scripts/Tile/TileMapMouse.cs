@@ -62,12 +62,12 @@ public class TileMapMouse : MonoBehaviour {
         bool check_x = false;
         bool check_z= false;
         Debug.Log("Click!" + "X : " + mousePos_x + "  Y : " + mousePos_z);
-        if (!GameManager.instance.mData.data[mousePos_x * GameManager.instance.mData.size_x + mousePos_z - 1].build && GameManager.instance.isSelect && mgr.buildMode)
+        if (!GameManager.instance.mData.data[mousePos_x , mousePos_z ].build && GameManager.instance.isSelect && mgr.buildMode)
         {
             if (mousePos_x == 0 && mousePos_z == 0)
             {
                 CreateTile();
-                GameManager.instance.mData.data[mousePos_x * GameManager.instance.mData.size_x + mousePos_z - 1].build = true;
+                GameManager.instance.mData.data[mousePos_x, mousePos_z].build = true;
                 Debug.Log("CreateTile");
                 Debug.Log("a");
             }
@@ -75,7 +75,7 @@ public class TileMapMouse : MonoBehaviour {
                 // 좌측 검사
                 if (mousePos_x != 0)
                 {
-                    if (GameManager.instance.mData.data[mousePos_x *GameManager.instance.mData.size_x + mousePos_z-2].build)
+                    if (GameManager.instance.mData.data[mousePos_x -1 ,mousePos_z].build)
                     {
                         check_x = true;
                     }
@@ -83,8 +83,8 @@ public class TileMapMouse : MonoBehaviour {
                 //우측검사
                 if (mousePos_x != 29)
                 {
-                    //if (GameManager.instance.mData.data[mousePos_x + 1, mousePos_z].build)
-                    if (GameManager.instance.mData.data[(mousePos_x * GameManager.instance.mData.size_x + mousePos_z +1)].build) 
+                    if (GameManager.instance.mData.data[mousePos_x + 1, mousePos_z].build)
+                    //if (GameManager.instance.mData.data[(mousePos_x * GameManager.instance.mData.size_x + mousePos_z +1)].build) 
                     {
                         check_x = true;
                     }
@@ -92,8 +92,8 @@ public class TileMapMouse : MonoBehaviour {
                 //상 검사
                 if (mousePos_z != 0)
                 {
-                   // if (GameManager.instance.mData.data[mousePos_x, mousePos_z - 1].build)
-                   if (GameManager.instance.mData.data[mousePos_x + 1 * GameManager.instance.mData.size_x + mousePos_z - 2].build)
+                    if (GameManager.instance.mData.data[mousePos_x, mousePos_z - 1].build)
+                    //if (GameManager.instance.mData.data[mousePos_x + 1 * GameManager.instance.mData.size_x + mousePos_z - 2].build)
                     {
                         check_z = true;
                     }
@@ -101,8 +101,8 @@ public class TileMapMouse : MonoBehaviour {
                 //하 검사
                 if (mousePos_z != 29)
                 {
-                    //if (GameManager.instance.mData.data[mousePos_x, mousePos_z + 1].build)
-                    if (GameManager.instance.mData.data[mousePos_x - 1 * GameManager.instance.mData.size_x + mousePos_z].build)
+                    if (GameManager.instance.mData.data[mousePos_x, mousePos_z + 1].build)
+                    //if (GameManager.instance.mData.data[mousePos_x - 1 * GameManager.instance.mData.size_x + mousePos_z].build)
                     {
                         check_z = true;
                     }
@@ -111,8 +111,8 @@ public class TileMapMouse : MonoBehaviour {
                 if (check_x || check_z)
                 {
                     CreateTile();
-                    //GameManager.instance.mData.data[mousePos_x, mousePos_z].build = true;
-                    GameManager.instance.mData.data[buildPos_x * GameManager.instance.mData.size_x + buildPos_z - 1].build = true;
+                    GameManager.instance.mData.data[mousePos_x, mousePos_z].build = true;
+                    //GameManager.instance.mData.data[buildPos_x * GameManager.instance.mData.size_x + buildPos_z - 1].build = true;
                     buildPos_x = mousePos_x;
                     buildPos_z = mousePos_z;
                     //mgr.mData.data[mousePos_x, mousePos_z].type = mgr.buildType;
@@ -138,6 +138,6 @@ public class TileMapMouse : MonoBehaviour {
     }
     public void SetBuildType(TileType type)
     {
-        GameManager.instance.mData.data[buildPos_x * GameManager.instance.mData.size_x +  buildPos_z -1].type = type;
+        GameManager.instance.mData.data[buildPos_x , buildPos_z].type = type;
     }
 }

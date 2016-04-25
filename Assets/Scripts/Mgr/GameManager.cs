@@ -24,7 +24,10 @@ public class GameManager : DataTools
     //타이틀 
     private bool loadMap = false;
     public bool nextBattle= false;
-    public MapData mData = null;
+
+
+    public TileMapdData mData = null;
+   // public MapTile[,] mData;
 
     //최대 덱의 수
     public const int deckCount = 30;
@@ -41,7 +44,6 @@ public class GameManager : DataTools
     {
         cardNumber = number;
         isSelect = true;
-        
     }
 
 
@@ -52,17 +54,22 @@ public class GameManager : DataTools
 
     public void MapDataInit(int x, int z)
     {
-        mData = new MapData(x,z);
+        mData = new TileMapdData(x,z);
        // mData.Init(x, z);
-        mData.data[0].build = true;
-        mData.data[0].type = TileType.VILLIAGE;
+        mData.data[0, 0].build = true;
+        mData.data[0, 0].type = TileType.VILLIAGE;
     }
 
     public string SceneName()
     {
         return SceneManager.GetActiveScene().name;
     }
-    public void LoadTileMap()
+    public void LoadTileMapData()
+    {
+
+    }
+
+    public void GenerateTileMap()
     {
 
     }

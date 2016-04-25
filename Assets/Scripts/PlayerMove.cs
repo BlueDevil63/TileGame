@@ -25,7 +25,7 @@ public class PlayerMove : MonoBehaviour{
         dirNumber = number;
     }
 
-    public bool Move(GameObject playerObj, MapData mdata)
+    public bool Move(GameObject playerObj, TileMapdData mdata)
     {
         bool moving = false;
 
@@ -78,36 +78,36 @@ public class PlayerMove : MonoBehaviour{
         return moving;
     }
 
-    private void CheckTile(Player player, MapData mData)
+    private void CheckTile(Player player, TileMapdData mData)
     {
         int x = player.pos_x;
         int y = player.pos_y;
         if (y <= mData.size_z - 2)
         {
             //상
-            //if (mData.data[x, y + 1].build)
-            if (mData.data[(x +1 * mData.size_x) + y].build)
+            if (mData.data[x, y + 1].build)
+                //if (mData.data[(x +1 * mData.size_x) + y].build)
                 check[0] = true;
         }
         if (y >= 1)
         {
             //하
-            //if (mData.data[x, y - 1].build)
-            if (mData.data[(x -1 * mData.size_x) + y].build)
+            if (mData.data[x, y - 1].build)
+                //if (mData.data[(x -1 * mData.size_x) + y].build)
                 check[1] = true;
         }
         if (x >= 1)
         {
             //좌
-            //if (mData.data[x - 1, y].build)
-            if (mData.data[x * mData.size_x + y-2].build)
+            if (mData.data[x - 1, y].build)
+                //if (mData.data[x * mData.size_x + y-2].build)
                 check[2] = true;
         }
         if(x <= mData.size_x - 2)
         {
             //우
-            //if (mData.data[x + 1, y].build)
-            if (mData.data[x * mData.size_x + y].build)
+            if (mData.data[x + 1, y].build)
+          //if (mData.data[x * mData.size_x + y].build)
                     check[3] = true;
         }
         pos_x = x;

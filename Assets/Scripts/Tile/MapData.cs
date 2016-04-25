@@ -7,6 +7,31 @@ using TileCollections;
 
 namespace TileCollections
 {
+    public class TileMapdData
+    {
+        public int size_x;
+        public int size_z;
+        public MapTile[,] data;
+
+        public TileMapdData() { }
+        public TileMapdData(int x, int z)
+        {
+            size_x = x;
+            size_z = z;
+            data = new MapTile[x, z];
+
+            for (int k = 0; k < size_x; k++)
+            {
+                for (int j = 0; j < size_z; j++)
+                {
+                    MapTile tile = new MapTile();
+                    data[k, j] = tile;
+
+                }
+            }
+            Debug.Log("Done MapData");
+        }
+    }
     [System.Serializable]
     public class MapData
     {

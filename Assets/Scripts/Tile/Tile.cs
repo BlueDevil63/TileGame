@@ -21,6 +21,18 @@ namespace TileCollections
     public class MapTile
     {
         // 직접 추가
+        [XmlElement("index_x")]
+        public int index_x;
+        [XmlElement("index_x")]
+        public int index_z;
+
+        [XmlElement("cost")]
+        public int cost;
+
+        [XmlArray("edge")]
+        [XmlArrayItem("Edge")]
+        public Edge[] edges = new Edge[4];
+
         [XmlElement("build")]
         public bool build;
         [XmlEnum("type")]
@@ -28,11 +40,15 @@ namespace TileCollections
 
         public MapTile()
         {
+            index_x = 0;
+            index_z = 0;
             build = false;
             type = TileType.VOID;
         }
-        public MapTile (bool b, TileType t)
+        public MapTile (int x, int z,  bool b, TileType t)
         {
+            index_x = x;
+            index_z = z;
             build = b;
             type = t;
         }
