@@ -27,18 +27,18 @@ namespace DataSpace
     [System.Serializable]
     public class PlayerData : CharterData
     {
-        [XmlArray("tileCardList")]
-        [XmlArrayItem("TileCard")]
-        public List<TileCard> tileCardList;
-        [XmlArray("tileDeck")]
-        [XmlArrayItem("TileCard")]
-        public List<TileCard> tileDeck;
-        [XmlArray("battleCardList")]
-        [XmlArrayItem("BattleCard")]
-        public List<BattleCard> battleCardList;
-        [XmlArray("battleDeck")]
-        [XmlArrayItem("BattleCard")]
-        public List<BattleCard> battleDeck;
+        [XmlArray("d_TCList")]
+        [XmlArrayItem("string")]
+        public List<string> d_TCList;
+        [XmlArray("d_TCDeck")]
+        [XmlArrayItem("string")]
+        public List<string> d_TCDeck;
+        [XmlArray("d_BCList")]
+        [XmlArrayItem("string")]
+        public List<string> d_BCList;
+        [XmlArray("d_BCDeck")]
+        [XmlArrayItem("string")]
+        public List<string> d_BCDeck;
     }
 
     public class MonsterData : CharterData

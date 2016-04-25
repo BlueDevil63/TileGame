@@ -32,20 +32,36 @@ public class CreateData : MonoBehaviour {
         _pData.hp = 2.0f;
         _pData.mp = 1.5f;
         _pData.modelAdress = "Prefabs/PlayerChar/Warrior_0";
-        _pData.tileCardList = new List<TileCard>();
-        TileCard tCard = new TileCard("villiage", TileType.VILLIAGE, 1, "Villiage", "Prefabs/prfVilliage");
-        _pData.tileCardList.Add(tCard);
+        _pData.d_TCList = new List<string>();
+        _pData.d_TCList.Add("Move2");
+        _pData.d_TCList.Add("Forest");
+        _pData.d_TCList.Add("Cave");
+        _pData.d_TCList.Add("Dungeon");
 
-        _pData.tileDeck = new List<TileCard>();
-        _pData.tileDeck.Add(tCard);
+        _pData.d_TCDeck = new List<string>();
+        _pData.d_TCDeck.Add("Move2");
+        _pData.d_TCDeck.Add("Forest");
+        _pData.d_TCDeck.Add("Cave");
+        _pData.d_TCDeck.Add("Dungeon");
+        _pData.d_TCDeck.Add("Move2");
+        _pData.d_TCDeck.Add("Forest");
+        _pData.d_TCDeck.Add("Cave");
+        _pData.d_TCDeck.Add("Dungeon");
 
-        _pData.battleCardList = new List<BattleCard>();
-        BattleCard bCard = new BattleCard("Punch", SkillType.Knock, ElementType.None, 5, "None", "NoneAdress");
 
-        _pData.battleCardList.Add(bCard);
+        _pData.d_BCList = new List<string>();
+        _pData.d_BCList.Add("Punch");
+        _pData.d_BCList.Add("Slash_1");
+        _pData.d_BCList.Add("Guard");
+        _pData.d_BCList.Add("X");
 
-        _pData.battleDeck = new List<BattleCard>();
-        _pData.battleDeck.Add(bCard);
+        _pData.d_BCDeck = new List<string>();
+        _pData.d_BCDeck.Add("Punch");
+        _pData.d_BCDeck.Add("Slash_1");
+        _pData.d_BCDeck.Add("Guard");
+        _pData.d_BCDeck.Add("X");
+
+
 
         _fileName = "BasicPlayer.xml";
         _data = dTool.SerlializeObject(_pData, "Player");
