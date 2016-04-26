@@ -9,6 +9,7 @@ public class MonsterBasic : MonoBehaviour {
     public float def;
     public float hp;
     public float mp;
+    public int actPoint;
     public List<string> attackList;
     public List<string> defenseList;
     public List<string> skillList;

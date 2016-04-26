@@ -17,27 +17,47 @@ namespace TileCollections
         VILLIAGE
     }
 
-    public struct Vec3
+    [System.Serializable]
+    public class Vec3
     {
-        float x;
-        float y;
-        float z;
-    }
+        public float x;
+        public float y;
+        public float z;
 
+        public Vec3(){}
+        public Vec3(int vx, int vy, int vz)
+        {
+            x = vx;
+            y = vy;
+            z = vz;
+        }
+        public Vec3(Vector3 pos)
+        {
+            x = pos.x;
+            y = pos.y;
+            z = pos.z;
+        }
+        public void Fill(Vector3 pos)
+        {
+            x = pos.x;
+            y = pos.y;
+            z = pos.z;
+        }
+
+        public Vector3 Vec3Pos
+        {
+            get { return new Vector3(x, y, z); }
+        }
+    }
     [System.Serializable]
     public class MapTile
     {
-        public struct Vec3
-        {
-            float x;
-            float y;
-            float z;
-        }
+      
         // 직접 추가
-        [XmlElement("index_x")]
-        public int index_x;
-        [XmlElement("index_x")]
-        public int index_z;
+        [XmlElement("array_x")]
+        public int array_x;
+        [XmlElement("array_z")]
+        public int array_z;
 
     
        // public Vector3 v_pos;
@@ -57,19 +77,28 @@ namespace TileCollections
 
         public MapTile()
         {
-            index_x = 0;
-            index_z = 0;
+            array_x = 0;
+            array_z = 0;
             cost = 0;
             build = false;
             type = TileType.VOID;
         }
+
+        public MapTile(int x, int z, Vector3 vpos)
+        {
+            array_x = x;
+            array_x = z;
+            pos = new Vec3(vpos);
+        }
+
         public MapTile (int x, int z,  bool b, int c, TileType t)
         {
             cost = c;
-            index_x = x;
-            index_z = z;
+            array_x = x;
+            array_z = z;
             build = b;
             type = t;
+            pos = new Vec3(0, 0, 0);
         }
 
     }
@@ -103,22 +132,27 @@ namespace TileCollections
 
     public class Edge
     {
-        public Tile from;
-
-        public Tile to;
-
+        [XmlElement("from")]
+        public MapTile from;
+        [XmlElement("to")]
+        public MapTile to;
+        [XmlElement("cost")]
         public int cost;
 
+        public Edge()
+        {
+
+        }
         public Edge(int c)
         {
             cost = c;
         }
-        public Edge(Tile f, Tile t)
+        public Edge(MapTile f, MapTile t)
         {
             from = f;
             to = t;
         }
-        public Edge(Tile f, Tile t, int c)
+        public Edge(MapTile f, MapTile t, int c)
         {
             from = f;
             to = t;

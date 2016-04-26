@@ -12,17 +12,19 @@ public class TileMap : MonoBehaviour {
     public int size_x = 30;
     public int size_z = 30;
     public float tileSize = 1.0f;
-    public Tile[,] tiles = new Tile[30,30];
+    public MapTile[,] tiles = new MapTile[30,30];
 
 	// Use this for initialization
 	void Start () {
-        BuildMesh();
+      BuildMesh();
+      /// CreateNode();
+      //  CreateEdge();
         GameManager.instance.MapDataInit(size_x, size_z);
 	}
 	
 	public void BuildMesh()
     {
-        tiles = new Tile[size_x, size_z];
+        tiles = new MapTile[size_x, size_z];
         int numTiles = size_x * size_z;
         int numTris = numTiles * 2;
         
@@ -100,7 +102,7 @@ public class TileMap : MonoBehaviour {
                 float z = 0.5f + q * 0.5f;
                 float y = 0;
                 Vector3 pos = new Vector3(0.5f + q * 0.5f, 0, 0.5f + k * 0.5f);
-                Tile tile = new Tile(q, k, pos);
+                MapTile tile = new MapTile(q, k, pos);
                 tiles[q,k] = tile;
             }
         }

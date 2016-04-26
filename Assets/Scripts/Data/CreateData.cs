@@ -70,7 +70,8 @@ public class CreateData : MonoBehaviour {
     }
     public void CreateMapData()
     {
-        MapData mData = new MapData();
+        MapData mData = new MapData(30, 30);
+
         _fileName = "BasicMap.xml";
         _data = dTool.SerlializeObject(mData, "MapData");
         dTool.CreateXML(_data, _fileName, _fileLocation);

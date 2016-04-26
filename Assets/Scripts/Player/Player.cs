@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
     public float def;
     public float maxHp;
     public float maxMp;
+
+    public int actPoint;
     public Deck deck;
     public List<TileCard> handCard;
     public BattleDeck battleDeck;
@@ -24,10 +26,11 @@ public class Player : MonoBehaviour {
     public int pos_y;
 
     public PlayerGUI pGUI;
-  
+   
     public void InGameInit() {
 
         pGUI = gameObject.GetComponent<PlayerGUI>();
+        
         //btHandGUI = btScroll.GetComponent<CardScroll>();
         //pData = new PlayerData("BlueTeam", 1, 4.5f, 5.5f, 4.0f);
 
@@ -43,6 +46,7 @@ public class Player : MonoBehaviour {
         battleHands = new List<BattleCard>();
         selectCard = new TileCard(string.Empty, TileType.NONE, 0, string.Empty, null);
         //name = "BlueTeam";
+
         deck.Init();
         deck.Mix();
 
@@ -60,12 +64,16 @@ public class Player : MonoBehaviour {
     public void InGameStart()
     {
         pGUI.Init();
+        pGUI.HpUpDate(maxHp, 0);
+        pGUI.MpUpDate(maxMp, 0);
         pGUI.inGameCardScroll.SetUpCard(this);
     }
 
     public void BattleStart()
     {
         pGUI.Init();
+        pGUI.HpUpDate(maxHp, 0);
+        pGUI.MpUpDate(maxMp, 0);
         pGUI.battleCardScroll.SetUpCard(this);
     }
 
@@ -87,6 +95,8 @@ public class Player : MonoBehaviour {
         pGUI.inGameCardScroll.UseCard(this);
         return type;
     }
+
+
     //public int CheckSelected()
     //{
     //    int number = -1;
