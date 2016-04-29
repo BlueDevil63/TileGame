@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using BehaviourTree;
 
-public class MonsterBasic : MonoBehaviour {
+public class MonsterBasic : BlackBoard {
 
     public string charName;
     public float level;
     public float def;
-    public float hp;
-    public float mp;
+    public float maxHp;
+    public float dHp;
+    public float maxMp;
+    public float dMp;
     public int actPoint;
     public List<string> attackList;
     public List<string> defenseList;
@@ -18,6 +21,10 @@ public class MonsterBasic : MonoBehaviour {
     public int pos;         //1~6까지 있음 1~3 전방 4~6 후방 1부터 좌측
                             //FSM을 사용한다.
 
+    public void SetBeheviourTree()
+    {
+
+    }
     // Use this for initialization
     void Start () {
 

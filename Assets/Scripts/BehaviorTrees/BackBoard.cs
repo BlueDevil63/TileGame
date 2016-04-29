@@ -15,12 +15,12 @@ namespace BehaviourTree
     public abstract class BlackBoard : MonoBehaviour
     {
         public GameObject target;
-        public float maxHp;
-        public float maxMp;
-        public float dHp;
-        public float dMp;
-        public float def;
-        public float level;
+        //public float maxHp;
+        //public float maxMp;
+        //public float dHp;
+        //public float dMp;
+        //public float def;
+        //public float level;
         public personality peronsa;
     
     }
