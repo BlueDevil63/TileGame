@@ -30,11 +30,11 @@ public class ObjectPool
     }
     public void Add(GameObject Instacne)
     {
-        
         mRealsedIndex.Add(mInstance.Count);
         mInstance.Add(Instacne);
         mUsing.Add(true);
         mReleasedCount++;
+        Instacne.SetActive(false);
     }
 
     public GameObject Create()

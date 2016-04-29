@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CardCollections;
 using DataSpace;
+using DataSpace.Battle;
 using TileCollections;
 
 public class CreateData : MonoBehaviour {
@@ -132,6 +133,30 @@ public class CreateData : MonoBehaviour {
         _data = dTool.SerlializeObject(mDataBase, "MonsterList");
         dTool.CreateXML(_data, _fileName, _fileLocation);
        
+    }
+
+    public void CreateDungeonData()
+    {
+        DungeonData dData = new DungeonData();
+        dData.d_Name = "Forest";
+        dData.dungeonLength = 1;
+        dData.dungeonLevel = 2;
+        dData.level1 = new List<string>();
+        dData.level1.Add("Evil Mushroom");
+        dData.level1.Add("Nymph Fairy");
+        dData.level2 = new List<string>();
+        dData.level2.Add("Forest Wolf");
+        dData.level2.Add("Monster Bee");
+        dData.level3 = new List<string>();
+        dData.level4 = new List<string>();
+
+        DungeonList dungeonList = new DungeonList();
+        dungeonList.d_List = new List<DungeonData>();
+        dungeonList.d_List.Add(dData);
+        _fileName = "DungeonList.xml";
+        _data = dTool.SerlializeObject(dungeonList, "DungeonList");
+        dTool.CreateXML(_data, _fileName, _fileLocation);
+
     }
 
 }

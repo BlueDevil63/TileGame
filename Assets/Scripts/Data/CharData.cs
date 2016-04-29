@@ -64,19 +64,56 @@ namespace DataSpace
         [XmlArrayItem("MonsterData")]
         public List<MonsterData> monsterList = null;
     }
-
-    namespace Attack
+    namespace Battle
     {
+        public class DungeonData
+        {
+            [XmlElement("d_Name")]
+            public string d_Name;
+            [XmlElement("dungeonLevel")]
+            public int dungeonLevel;
+            [XmlElement("dungeonLength")]
+            public int dungeonLength;
+            [XmlArray("level1")]
+            [XmlArrayItem("string")]
+            public List<string> level1;
+            [XmlArray("level2")]
+            [XmlArrayItem("string")]
+            public List<string> level2;
+            [XmlArray("level3")]
+            [XmlArrayItem("string")]
+            public List<string> level3;
+            [XmlArray("level4")]
+            [XmlArrayItem("string")]
+            public List<string> level4;
 
+            public DungeonData(){ }
+        }
+
+        public class DungeonList
+        {
+            [XmlArray("dungeonList")]
+            [XmlArrayItem("DungeonData")]
+            public List<DungeonData> d_List;
+
+            public DungeonList() { }
+        }
+
+        namespace Attack
+        {
+
+        }
+
+        namespace Defense
+        {
+
+        }
+
+        namespace Skill
+        {
+
+        }
     }
 
-    namespace Defense
-    {
-
-    }
-
-    namespace Skill
-    {
-
-    }
+ 
 }

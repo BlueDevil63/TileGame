@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Text;
 using DataSpace;
+using DataSpace.Battle;
 using CardCollections;
 using TileCollections;
 
@@ -57,7 +58,8 @@ public class DataTools
             case "MapData":
                 xs = new XmlSerializer(typeof(MapData));
                 break;
-            case "CardArea":
+            case "DungeonList":
+                xs = new XmlSerializer(typeof(DungeonList));
                 break;
             case "Villiage":
                 break;
