@@ -3,32 +3,30 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using DataSpace;
+using DataSpace.Battle;
 using TileCollections;
 
 public class GameManager : DataTools
 {
     private static GameManager _instance;
-    public static GameManager instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
+    public static GameManager instance {
+        get {
+            if (_instance == null) {
                // Debug.LogError("GameManager = null!!");
                 _instance = new GameManager();
             }
             return _instance;
         }
-    
     }
-
     //타이틀 
     private bool loadMap = false;
-    public bool nextBattle= false;
+    //public bool nextScene= false;
     //세이브 & 로드
     protected string _FName;
     protected string _FLoaction = Application.dataPath + "/Resources/Data";
     protected string _TempData;
+
+    public string dungeonName;
 
     public PlayerData p_Data;
     public TileMapdData mData = null;
@@ -39,25 +37,20 @@ public class GameManager : DataTools
     //Stack 플레이어 리스트
     public int pIndex;
     public Player _player;
-   
 
     public int loadCount = 0;
-
     public int cardNumber;
     public bool isSelect = false;
 
-    public void SelectCard(int number)
-    {
+    public void SelectCard(int number){
         cardNumber = number;
         isSelect = true;
     }
 
-
-    void Awake()
-    {
+    void Awake(){
         _instance = this;
     }
-
+    //맵데이터 초기화
     public void MapDataInit(int x, int z)
     {
         mData = new TileMapdData(x,z);
@@ -65,24 +58,74 @@ public class GameManager : DataTools
         mData.data[0, 0].build = true;
         mData.data[0, 0].type = TileType.VILLIAGE;
     }
-
+    //씬이름을 체크후 리턴한다.
     public string SceneName()
     {
         return SceneManager.GetActiveScene().name;
     }
-    public void LoadTileMapData()
+    //타일맵 데이터를 불러온다.
+    protected MapData LoadTileMapData(string name)
     {
-      
+        MapData mData = new MapData();
 
+        return mData;
+    }
+    //타일맵 생성
+    public void GenerateTileMap(string name)
+    {
+        ///데이터 불러오기
+        ///불러온 데이터로 맵생성 시작
+        ///for문을 이용해 타일을 하나하나 체크하면서 프리팹 설치;
+
+        LoadTileMapData(name);
+    }
+    public bool CheckNextScene(TileType type)
+    {
+        ///타일 타입이 던전타입(동굴, 숲, 요새, 사막) 자동을 LoadBattleScene을 호출하여 씬을 바꾸고,
+        ///데이터를 임시 저장한다 = false;
+        ///마을이면 마을GUI를 로드시킨다. = true
+        ///
+        if(type == TileType.VILLIAGE){
+            return true;
+        }
+        else if(type != TileType.NONE && type != TileType.VOID)
+        {
+            return false;
+        }
+        else
+        {
+            Debug.LogError("잘못된 타일이동");
+        }
+
+        return false;
     }
 
-    public void GenerateTileMap()
-    {
-
-    }
     public void LoadBattleScene()
     {
+        //플레이어 HandCard(Tile)을 백업
 
+        //현재 타일 맵 데이터를 저장;
+        MapTile tile = mData.data[_player.pos_x, _player.pos_y];
+        //씬 이동
+        SceneManager.LoadScene("BattleScne");
+
+    }
+
+    public DungeonData LoadDungeonData(string name)
+    {
+        string data;
+        DungeonData dungeon = new DungeonData();
+        _FName = "DungeonList.xml";
+        data = LoadXML(_FName, _FLoaction);
+        DungeonList mDungeonList = (DungeonList)DeserializeObject(data, "DungeonList");
+        for(int i = 0; i<mDungeonList.d_List.Count; i++)
+        {
+            if(mDungeonList.d_List[i].d_Name == name)
+            {
+                dungeon = mDungeonList.d_List[i];
+            }
+        }
+        return dungeon;
     }
     public void LoadPlayerData()
     {

@@ -52,7 +52,9 @@ namespace TileCollections
     [System.Serializable]
     public class MapTile
     {
-      
+        [XmlElement("tileName")]
+        public string tileName;
+
         // 직접 추가
         [XmlElement("array_x")]
         public int array_x;
@@ -75,8 +77,11 @@ namespace TileCollections
         [XmlEnum("type")]
         public TileType type;
 
+
+
         public MapTile()
         {
+            tileName = "Void";
             array_x = 0;
             array_z = 0;
             cost = 0;
@@ -86,6 +91,7 @@ namespace TileCollections
 
         public MapTile(int x, int z, Vector3 vpos)
         {
+            tileName = "Void";
             array_x = x;
             array_x = z;
             pos = new Vec3(vpos);
@@ -93,6 +99,7 @@ namespace TileCollections
 
         public MapTile (int x, int z,  bool b, int c, TileType t)
         {
+            tileName = "Void";
             cost = c;
             array_x = x;
             array_z = z;

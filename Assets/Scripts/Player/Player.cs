@@ -31,15 +31,6 @@ public class Player : MonoBehaviour {
 
         pGUI = gameObject.GetComponent<PlayerGUI>();
         
-        //btHandGUI = btScroll.GetComponent<CardScroll>();
-        //pData = new PlayerData("BlueTeam", 1, 4.5f, 5.5f, 4.0f);
-
-        //GenerateData();
-       //charName = "BlueDevil";
-       // level = 1;
-       // def = 1.5f;
-       // MaxHp = 1.5f;
-       // MaxMp = 1.5f;
         deck = new Deck();
         handCard = new List<TileCard>();
         battleDeck = new BattleDeck();
@@ -57,8 +48,6 @@ public class Player : MonoBehaviour {
         {
             handCard.Add(deck.Pop());
         }
-        //btHandGUI.SetUpCard(this);
-      // pGUI.Init();
     }
 
     public void InGameStart()

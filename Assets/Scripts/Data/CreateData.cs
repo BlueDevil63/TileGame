@@ -69,6 +69,7 @@ public class CreateData : MonoBehaviour {
         dTool.CreateXML(_data, _fileName, _fileLocation);
 
     }
+
     public void CreateMapData()
     {
         MapData mData = new MapData(30, 30);
@@ -77,6 +78,7 @@ public class CreateData : MonoBehaviour {
         _data = dTool.SerlializeObject(mData, "MapData");
         dTool.CreateXML(_data, _fileName, _fileLocation);
     }
+
     public void CreateItemData()
     {
         ItemData rPortion = new ItemData();
@@ -95,14 +97,30 @@ public class CreateData : MonoBehaviour {
         dTool.CreateXML(_data, _fileName, _fileLocation);
 
     }
-    public void CreateAttackCard()
+
+    public void CreateWeaponData()
+    {
+        WeaponData weapon = new WeaponData();
+        WeaponList wLIst = new WeaponList();
+
+        weapon.itemName = "BasicSword";
+        weapon.price = 60;
+        weapon.type = 1;
+        weapon.damage = 30;
+        weapon.durability = 100;
+        weapon.imageAdress = "None";
+
+        wLIst.wData = new List<WeaponData>();
+        wLIst.wData.Add(weapon);
+        _fileName = "WeaponList.xml";
+        _data = dTool.SerlializeObject(wLIst, "WeaponList");
+        dTool.CreateXML(_data, _fileName, _fileLocation);
+    }
+    public void CreateArmorData()
     {
 
     }
-    public void CreateSkillCard()
-    {
 
-    }
     public void CreateTileCard()
     {
 
@@ -122,10 +140,11 @@ public class CreateData : MonoBehaviour {
         mData.attackList = new List<string>();
         mData.attackList.Add("Punch");
         mData.defenseList = new List<string>();
+        mData.defenseList.Add("None");
         mData.skillList = new List<string>();
         mData.skillList.Add("Apeal");
         mData.style = 1;
-        mData.extra = string.Empty;
+        mData.extra ="None";
 
         mDataBase.monsterList.Add(mData);
 
@@ -148,15 +167,17 @@ public class CreateData : MonoBehaviour {
         dData.level2.Add("Forest Wolf");
         dData.level2.Add("Monster Bee");
         dData.level3 = new List<string>();
+        dData.level3.Add("None");
         dData.level4 = new List<string>();
+        dData.level4.Add("None");
 
         DungeonList dungeonList = new DungeonList();
         dungeonList.d_List = new List<DungeonData>();
         dungeonList.d_List.Add(dData);
+
         _fileName = "DungeonList.xml";
         _data = dTool.SerlializeObject(dungeonList, "DungeonList");
         dTool.CreateXML(_data, _fileName, _fileLocation);
-
     }
 
 }

@@ -26,21 +26,18 @@ public class InGameMgr :MonoBehaviour {
     private InGameState gState;
     [HideInInspector]
     public bool buildMode;
-    //[HideInInspector]
-    //public bool isSelect;
     [HideInInspector]
     public bool isBuild;
-   // [HideInInspector]
-   // public int cardNumber;
 
     public GameObject _playerObj;
 
     [HideInInspector]
     public GameObject tileObj;
 
-    //[HideInInspector]
     public TileType buildType;
 
+
+    //컴포넌트 들
     private PlayerMove move;
     public GameObject movePanel;
     private PlayerAct act;
@@ -141,7 +138,7 @@ public class InGameMgr :MonoBehaviour {
             gState = InGameState.MovePlayer;
             isBuild = false;
             GameManager.instance.isSelect = false;
-            Debug.Log(buildType);
+           // Debug.Log(buildType);
             buildType = TileType.NONE;
         }
     }
@@ -169,11 +166,26 @@ public class InGameMgr :MonoBehaviour {
         {
             if(act.mComfirm)
             {
-                gState = InGameState.Ready;
-                GameManager.instance._player = GameManager.instance._player;
-                GameManager.instance.nextBattle = true;
+                
+               // GameManager.instance._player = GameManager.instance._player;
+                if (GameManager.instance.CheckNextScene(buildType))
+                {
+                    InVilliage();
+                }
+                else
+                {
+                    gState = InGameState.Ready;
+                    Debug.Log(buildType.ToString());
+                    GameManager.instance.LoadBattleScene();
+                }
+                //GameManager.instance.nextScene = true;
             }
         }
+    }
+
+    private void InVilliage()
+    {
+
     }
  
 

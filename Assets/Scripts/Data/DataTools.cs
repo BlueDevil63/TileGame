@@ -14,8 +14,6 @@ using TileCollections;
 
 public class DataTools
 {
-
-
     public  string UTF8ByteArrayToString(byte[] gameData)
     {
         UTF8Encoding encoding = new UTF8Encoding();
@@ -49,8 +47,10 @@ public class DataTools
                 xs = new XmlSerializer(typeof(MonsterDataBase));
                 break;
             case "ArmorList":
+                xs = new XmlSerializer(typeof(ArmorList));
                 break;
             case "WeaponList":
+                xs = new XmlSerializer(typeof(WeaponList));
                 break;
             case "ItemList":
                 xs = new XmlSerializer(typeof(ItemList));
@@ -61,7 +61,7 @@ public class DataTools
             case "DungeonList":
                 xs = new XmlSerializer(typeof(DungeonList));
                 break;
-            case "Villiage":
+            case "VilliageList":
                 break;
             case "SaveData":
                 break;

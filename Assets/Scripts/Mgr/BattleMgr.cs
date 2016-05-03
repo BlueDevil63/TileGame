@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-///   실행 순서
 
+///   실행 순서
 ///1. GameManager를 통해서 던전 데이터를 로드
 ///2. 던전 정보 불러오기 
 ///3. 불러온 던전 정보를 이용해 오브젝트 풀에 프리팹 동록하기
 ///4. 자동 던전 정보 배치 시작
 ///5. 자동으로 생성된 던전에 난이도 1-2->3 순으로 몬스터를 나열 혹은 랜던으로 몬스터 나열
-///6. 몬스터를 배치시킬 던전 타일을 생성(한 칸당 z축으로 20간격 ) 
+///6. 몬스터를 배치시킬 던전 타일을 생성(한 칸당 z축으로 20간격) 
 ///   1.  (0,0,0)  2 .(0,0,20)  3. (0,0,40) 4. (0,0,60 )  5. (0,0,80) 6. (0,0,100) 으로 생성
 ///   타일 생성 후 부모는 Dungeon 오브젝트로 함
 ///7. 던전타일 -> CreateMonster를 통해서 프리팹을 각자 불러와 몬스터를 배치
@@ -24,7 +24,7 @@ public class BattleMgr : MonoBehaviour {
     public List<GameObject> dTileList;
     // Use this for initialization
     void Start() {
-
+        /*
         //임시적으로 타일 부터 생성
         Vector3 pos = new Vector3(0, 0, 0);
         for (int k = 0; k < 6; k++)
@@ -35,7 +35,14 @@ public class BattleMgr : MonoBehaviour {
             tile.GetComponent<DungeonTile>().CreateMonster();
             dTileList.Add(tile);
         }
+        */
 
+        LoadDungeonData();      //던전데이터 불러오기
+        SettingObjectPool();    //오브젝트풀에 몬스터 정보를 불러와 넣어준다.
+        GenerateDungeon();      //자동적으로 던전을 생성시킨다.
+        PositioningMonster();   //몬스터를 위치시킨다.
+        SetActvieDungeon();     //던전의 SetActvie를 조정한다.
+        SettingThePlayer();     //플레이어의 정보를 불러오고의 데이터를 통해 GUI 세팅
     }
 
     // Update is called once per frame
@@ -50,8 +57,24 @@ public class BattleMgr : MonoBehaviour {
     {
 
     }
+    private void SettingObjectPool()
+    {
 
+    }
     private void GenerateDungeon()
+    {
+
+    }
+    private void PositioningMonster()
+    {
+
+    }
+    private void SetActvieDungeon()
+    {
+        //몬스터의 SetActive 시킨다.
+
+    }
+    private void SettingThePlayer()
     {
 
     }
