@@ -76,9 +76,8 @@ namespace DataSpace
     public class ArmorList
     {
         [XmlArray("aData")]
-        [XmlArrayItem("ArmorList")]
-        public List<ArmorList> aData;
+        [XmlArrayItem("ArmorData")]
+        public List<ArmorData> aData;
     }
 
 }
-

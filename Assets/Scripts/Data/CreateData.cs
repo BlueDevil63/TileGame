@@ -118,7 +118,21 @@ public class CreateData : MonoBehaviour {
     }
     public void CreateArmorData()
     {
+        ArmorData arm = new ArmorData();
+        ArmorList armList = new ArmorList();
 
+        arm.itemName = "BasicArmor";
+        arm.price = 45;
+        arm.type = 1;
+        arm.defense = 20;
+        arm.durability = 100;
+        arm.imageAdress = "None";
+
+        armList.aData = new List<ArmorData>();
+        armList.aData.Add(arm);
+        _fileName = "ArmorList.xml";
+        _data = dTool.SerlializeObject(armList, "ArmorList");
+        dTool.CreateXML(_data, _fileName, _fileLocation);
     }
 
     public void CreateTileCard()
