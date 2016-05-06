@@ -58,7 +58,7 @@ namespace DataSpace
         public string extra;
 
     }
-    public class MonsterDataBase
+    public class MonsterList
     {
         [XmlArray("monsterList")]
         [XmlArrayItem("MonsterData")]

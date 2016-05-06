@@ -40,11 +40,11 @@ public class DataTools
             case "BattleCardList":
                 xs = new XmlSerializer(typeof(TileCard));
                 break;
-            case "AreaCardList":
+            case "TileCardList":
                 xs = new XmlSerializer(typeof(TileCard));
                 break;
             case "MonsterList":
-                xs = new XmlSerializer(typeof(MonsterDataBase));
+                xs = new XmlSerializer(typeof(MonsterList));
                 break;
             case "ArmorList":
                 xs = new XmlSerializer(typeof(ArmorList));

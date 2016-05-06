@@ -77,8 +77,6 @@ namespace TileCollections
         [XmlEnum("type")]
         public TileType type;
 
-
-
         public MapTile()
         {
             tileName = "Void";

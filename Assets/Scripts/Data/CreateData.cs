@@ -141,7 +141,7 @@ public class CreateData : MonoBehaviour {
     }
     public void CreatMosterData()
     {
-        MonsterDataBase mDataBase = new MonsterDataBase();
+        MonsterList mDataBase = new MonsterList();
         mDataBase.monsterList = new List<MonsterData>();
 
         MonsterData mData = new MonsterData();
