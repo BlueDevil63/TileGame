@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DataSpace.Battle;
+using DataSpace;
 using System.Collections.Generic;
 
 ///   실행 순서
@@ -22,6 +24,8 @@ public class BattleMgr : MonoBehaviour {
     public GameObject TilePrefab;
     public GameObject Dungeon;
     public List<GameObject> dTileList;
+    protected DungeonData d_Dungeon;
+    protected MonsterList d_monsterList;
     // Use this for initialization
     void Start() {
         /*
@@ -37,7 +41,7 @@ public class BattleMgr : MonoBehaviour {
         }
         */
 
-        LoadDungeonData();      //던전데이터 불러오기
+        LoadDatas();      //던전데이터 불러오기
         SettingObjectPool();    //오브젝트풀에 몬스터 정보를 불러와 넣어준다.
         GenerateDungeon();      //자동적으로 던전을 생성시킨다.
         PositioningMonster();   //몬스터를 위치시킨다.
@@ -53,9 +57,10 @@ public class BattleMgr : MonoBehaviour {
         ///3. 타일의 몬스터 제거 -> 던전이 당겨지고 던전타일이 맨뒤에 추가(타일 생성 -> 몬스터 추가)
     }
 
-    private void LoadDungeonData()
+    private void LoadDatas()
     {
-
+        d_Dungeon = GameManager.instance.m_DataManager.LoadDungeonData(GameManager.instance.dungeonName);
+        d_monsterList = GameManager.instance.m_DataManager.LoadMonsterList();
     }
     private void SettingObjectPool()
     {
@@ -63,7 +68,23 @@ public class BattleMgr : MonoBehaviour {
     }
     private void GenerateDungeon()
     {
-
+        string path = "/Prefabs/Battle/Tile/";
+        GameObject tileObj = null;
+        switch(d_Dungeon.d_Name)
+        {
+            case "Forest":
+                tileObj = Resources.Load<GameObject>(path + "prfForestTile");
+                break;
+            case "Cave":
+                tileObj = Resources.Load<GameObject>(path + "prfCaveTile");
+                break;
+            case "Dungeon":
+                tileObj = Resources.Load<GameObject>(path + "prfDungeonTile");
+                break;
+        }
+        for (int k = 0; k< d_Dungeon.dungeonLength; k++)
+        {
+        }
     }
     private void PositioningMonster()
     {

@@ -53,6 +53,15 @@ namespace CardCollections
             prfObjAddress = address;
         }
     }
+    [System.Serializable]
+    public class BattleCardLIst
+    {
+        [XmlArray("battleCards")]
+        [XmlArrayItem("BattleCard")]
+        public List<BattleCard> battleCards;
+
+        public BattleCardLIst() { battleCards = new List<BattleCard>(); }
+    }
 }
 
 public class BattleDeck
@@ -80,7 +89,7 @@ public class BattleDeck
 
         for (int i = 0; i < 40;)
         {
-            int nTemp = Random.RandomRange(0, 39);
+            int nTemp = Random.Range(0, 39);
             if (checkExistofNum[i] == false)
             {
                 deck.Push(temp.deck[nTemp]);

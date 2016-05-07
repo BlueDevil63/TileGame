@@ -181,7 +181,7 @@ public class Deck
 
         for(int i = 0; i < 30;)
         {
-            int nTemp = Random.RandomRange(0, 29);
+            int nTemp = Random.Range(0, 29);
             if(checkExistofNum[i] == false)
             {
                 deck.Push(temp.deck[nTemp]);

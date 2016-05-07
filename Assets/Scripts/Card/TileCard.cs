@@ -37,6 +37,16 @@ namespace CardCollections
 
         }
     }
+    [System.Serializable]
+    public class TileCardList
+    {
+
+        [XmlArray("cards")]
+        [XmlArrayItem("TileCard")]
+        public List<TileCard> tileCards;
+
+        public TileCardList() { tileCards = new List<TileCard>(); }
+    }
 
     namespace CardEvent
     {

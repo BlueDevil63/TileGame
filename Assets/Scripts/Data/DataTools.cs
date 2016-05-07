@@ -38,10 +38,10 @@ public class DataTools
                 xs = new XmlSerializer(typeof(PlayerData));
                 break;
             case "BattleCardList":
-                xs = new XmlSerializer(typeof(TileCard));
+                xs = new XmlSerializer(typeof(BattleCardLIst));
                 break;
             case "TileCardList":
-                xs = new XmlSerializer(typeof(TileCard));
+                xs = new XmlSerializer(typeof(TileCardList));
                 break;
             case "MonsterList":
                 xs = new XmlSerializer(typeof(MonsterList));

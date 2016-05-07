@@ -6,7 +6,7 @@ using DataSpace;
 using DataSpace.Battle;
 using TileCollections;
 
-public class GameManager : DataTools
+public class GameManager //: DataTools
 {
     private static GameManager _instance;
     public static GameManager instance {
@@ -20,18 +20,11 @@ public class GameManager : DataTools
     }
     //타이틀 
     private bool loadMap = false;
-    //public bool nextScene= false;
     //세이브 & 로드
-    protected string _FName;
-    protected string _FLoaction = Application.dataPath + "/Resources/Data";
-    protected string _TempData;
-
+    public DataManager m_DataManager = new DataManager();
     public string dungeonName;
-
     public PlayerData p_Data;
     public TileMapdData mData = null;
-   // public MapTile[,] mData;
-
     //최대 덱의 수
     public const int deckCount = 30;
     //Stack 플레이어 리스트
@@ -46,7 +39,6 @@ public class GameManager : DataTools
         cardNumber = number;
         isSelect = true;
     }
-
     void Awake(){
         _instance = this;
     }
@@ -108,38 +100,16 @@ public class GameManager : DataTools
         MapTile tile = mData.data[_player.pos_x, _player.pos_y];
         //씬 이동
         SceneManager.LoadScene("BattleScne");
-
     }
 
-    public DungeonData LoadDungeonData(string name)
-    {
-        string data;
-        DungeonData dungeon = new DungeonData();
-        _FName = "DungeonList.xml";
-        data = LoadXML(_FName, _FLoaction);
-        DungeonList mDungeonList = (DungeonList)DeserializeObject(data, "DungeonList");
-        for(int i = 0; i<mDungeonList.d_List.Count; i++)
-        {
-            if(mDungeonList.d_List[i].d_Name == name)
-            {
-                dungeon = mDungeonList.d_List[i];
-            }
-        }
-        return dungeon;
-    }
     public void LoadPlayerData()
     {
-        _FName = "Blue.xml";
-        _TempData = LoadXML(_FName, _FLoaction);
-        p_Data = (PlayerData)DeserializeObject(_TempData, "Player");
-        Debug.Log("성공");
-
+        p_Data = m_DataManager.LoadPlayerData("Blue");
         _player.charName = p_Data.charName;
         _player.maxHp = p_Data.hp;
         _player.maxMp = p_Data.mp;
         _player.def = p_Data.def;
         _player.level = p_Data.level;
-
     }
     public void SavePlayerData()
     {
