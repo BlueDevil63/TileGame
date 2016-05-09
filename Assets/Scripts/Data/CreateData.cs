@@ -172,6 +172,7 @@ public class CreateData : MonoBehaviour {
     {
         DungeonData dData = new DungeonData();
         dData.d_Name = "Forest";
+        dData.dungeonType = 1;
         dData.dungeonLength = 1;
         dData.dungeonLevel = 2;
         dData.level1 = new List<string>();

@@ -2,6 +2,7 @@
 using System.Collections;
 using DataSpace.Battle;
 using DataSpace;
+using Dungeon;
 using System.Collections.Generic;
 
 ///   실행 순서
@@ -22,31 +23,18 @@ using System.Collections.Generic;
 public class BattleMgr : MonoBehaviour {
 
     public GameObject TilePrefab;
-    public GameObject Dungeon;
     public List<GameObject> dTileList;
-    protected DungeonData d_Dungeon;
-    protected MonsterList d_monsterList;
+
+    // protected DungeonMgr m_DungeonMgr;
+    protected TempDungeonMgr m_DungeonMgr;
     // Use this for initialization
     void Start() {
-        /*
-        //임시적으로 타일 부터 생성
-        Vector3 pos = new Vector3(0, 0, 0);
-        for (int k = 0; k < 6; k++)
-        {
-            pos.z = k * 20;
-            GameObject tile = Instantiate(TilePrefab, pos, transform.rotation) as GameObject;
-            tile.transform.parent = Dungeon.transform;
-            tile.GetComponent<DungeonTile>().CreateMonster();
-            dTileList.Add(tile);
-        }
-        */
 
+        //m_DungeonMgr = new DungeonMgr();
+        m_DungeonMgr = new TempDungeonMgr();
         LoadDatas();      //던전데이터 불러오기
-        SettingObjectPool();    //오브젝트풀에 몬스터 정보를 불러와 넣어준다.
-        GenerateDungeon();      //자동적으로 던전을 생성시킨다.
-        PositioningMonster();   //몬스터를 위치시킨다.
-        SetActvieDungeon();     //던전의 SetActvie를 조정한다.
-        SettingThePlayer();     //플레이어의 정보를 불러오고의 데이터를 통해 GUI 세팅
+                          //플레이어의 정보를 불러오고의 데이터를 통해 GUI 세팅
+        SettingThePlayer();
     }
 
     // Update is called once per frame
@@ -59,51 +47,16 @@ public class BattleMgr : MonoBehaviour {
 
     private void LoadDatas()
     {
-        d_Dungeon = GameManager.instance.m_DataManager.LoadDungeonData(GameManager.instance.dungeonName);
-        d_monsterList = GameManager.instance.m_DataManager.LoadMonsterList();
-    }
-    private void SettingObjectPool()
-    {
+        //m_DungeonMgr.Generate();
 
     }
-    private void GenerateDungeon()
-    {
-        string path = "/Prefabs/Battle/Tile/";
-        GameObject tileObj = null;
-        switch(d_Dungeon.d_Name)
-        {
-            case "Forest":
-                tileObj = Resources.Load<GameObject>(path + "prfForestTile");
-                break;
-            case "Cave":
-                tileObj = Resources.Load<GameObject>(path + "prfCaveTile");
-                break;
-            case "Dungeon":
-                tileObj = Resources.Load<GameObject>(path + "prfDungeonTile");
-                break;
-        }
-        for (int k = 0; k< d_Dungeon.dungeonLength; k++)
-        {
-        }
-    }
-    private void PositioningMonster()
-    {
 
-    }
-    private void SetActvieDungeon()
-    {
-        //몬스터의 SetActive 시킨다.
-
-    }
     private void SettingThePlayer()
     {
 
     }
 
-    private void AddDungeon()
-    {
 
-    }
 
 
 }

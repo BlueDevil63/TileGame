@@ -86,6 +86,7 @@ public class GameManager //: DataTools
         }
         else
         {
+            Debug.Log(type.ToString());
             Debug.LogError("잘못된 타일이동");
         }
 
@@ -97,9 +98,10 @@ public class GameManager //: DataTools
         //플레이어 HandCard(Tile)을 백업
 
         //현재 타일 맵 데이터를 저장;
+        Debug.Log(dungeonName);
         MapTile tile = mData.data[_player.pos_x, _player.pos_y];
         //씬 이동
-        SceneManager.LoadScene("BattleScne");
+        SceneManager.LoadScene("Battle");
     }
 
     public void LoadPlayerData()

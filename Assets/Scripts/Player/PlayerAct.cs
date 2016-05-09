@@ -32,9 +32,11 @@ public class PlayerAct : MonoBehaviour {
             case TileType.FOREST :
                 massage.text = "숲속으로 진입합니다";
                 break;
+            default:
+                return false;
         }
         massageObject.SetActive(true);
-        return false;
+        return true;
     }
     public void MassageComfirm()
     {

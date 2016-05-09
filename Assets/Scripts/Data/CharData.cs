@@ -70,6 +70,8 @@ namespace DataSpace
         {
             [XmlElement("d_Name")]
             public string d_Name;
+            [XmlElement("dungeonType")]
+            public int dungeonType;
             [XmlElement("dungeonLevel")]
             public int dungeonLevel;
             [XmlElement("dungeonLength")]

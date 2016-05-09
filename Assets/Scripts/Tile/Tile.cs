@@ -107,7 +107,7 @@ namespace TileCollections
         }
 
     }
-
+    /*
     public class Tile
     {
 
@@ -134,7 +134,7 @@ namespace TileCollections
             position = pos;
         }
     }
-
+    */
     public class Edge
     {
         [XmlElement("from")]

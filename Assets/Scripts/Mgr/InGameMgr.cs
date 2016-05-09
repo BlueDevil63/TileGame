@@ -139,7 +139,7 @@ public class InGameMgr :MonoBehaviour {
             isBuild = false;
             GameManager.instance.isSelect = false;
            // Debug.Log(buildType);
-            buildType = TileType.NONE;
+           // 
         }
     }
 
@@ -151,6 +151,7 @@ public class InGameMgr :MonoBehaviour {
         curAct.text = "플레이어 이동";
        if(move.Move(_playerObj, GameManager.instance.mData))
         {
+            Debug.Log("이동완료");
             GameManager.instance._player.pos_x = move.PosX();
             GameManager.instance._player.pos_y = move.PosY();
             movePanel.SetActive(false);
@@ -164,6 +165,7 @@ public class InGameMgr :MonoBehaviour {
         curAct.text = "행동 선택";
         if(act.SelcetAct(GameManager.instance._player, GameManager.instance.mData))
         {
+            Debug.Log(act.mComfirm.ToString());
             if(act.mComfirm)
             {
                 
@@ -171,12 +173,16 @@ public class InGameMgr :MonoBehaviour {
                 if (GameManager.instance.CheckNextScene(buildType))
                 {
                     InVilliage();
+                    buildType = TileType.NONE;
                 }
                 else
                 {
                     gState = InGameState.Ready;
                     Debug.Log(buildType.ToString());
+                    //플레이어의 위치를 통해 현재 타일의 정보를 임시적으로 저장시킨다.
+                    
                     GameManager.instance.LoadBattleScene();
+                    buildType = TileType.NONE;
                 }
                 //GameManager.instance.nextScene = true;
             }

@@ -39,42 +39,49 @@ public class DataManager : DataTools {
         f_Data = SerlializeObject(player, "Player");
         CreateXML(f_Data, f_Name, location);
     }
+
     public void SaveMonsterData(MonsterList monster)
     {
         f_Name = "MonsterList.xml";
         f_Data = SerlializeObject(monster, "MonsterList");
         CreateXML(f_Data, f_Name, f_Location);
     }
+
     public void SaveItemData(ItemList item)
     {
         f_Name = "ItemList.xml";
         f_Data = SerlializeObject(item, "ItemList");
         CreateXML(f_Data, f_Name, f_Location);
     }
+
     public void SaveWeaponData(WeaponList weapon)
     {
         f_Name = "WeaponList.xml";
         f_Data = SerlializeObject(weapon, "WeaponList");
         CreateXML(f_Data, f_Name, f_Location);
     }
+
     public void SaveArmorData(ArmorList arm)
     {
         f_Name = "ArmorList.xml";
         f_Data = SerlializeObject(arm, "ArmorList");
         CreateXML(f_Data, f_Name, f_Location);
     }
+
     public void SaveTileCardData(TileCardList tile)
     {
         f_Name = "TileCardList.xml";
         f_Data = SerlializeObject(tile, "TileCardList");
         CreateXML(f_Data, f_Name, f_Location);
     }
+
     public void SaveBattleCardData(BattleCardLIst battle)
     {
         f_Name = "BattleCardLIst.xml";
         f_Data = SerlializeObject(battle, "BattleCardLIst");
         CreateXML(f_Data, f_Name, f_Location);
     }
+
     public DungeonList LoadDungeonList()
     {
         f_Name = "DungeonList.xml";
@@ -82,7 +89,6 @@ public class DataManager : DataTools {
         DungeonList m_DungeonList = (DungeonList)DeserializeObject(f_Data, "DungeonList");
         return m_DungeonList;
     }
-
     public DungeonData LoadDungeonData(string s_Name)
     {
         DungeonData m_Dungeon = new DungeonData();
@@ -96,7 +102,6 @@ public class DataManager : DataTools {
         }
         return m_Dungeon;
     }
-
 
     public PlayerData LoadPlayerData(string p_Name)
     {
@@ -115,6 +120,7 @@ public class DataManager : DataTools {
         PlayerData d_Player = (PlayerData)DeserializeObject(f_Data, "Player");
         return d_Player;
     }
+
     public MonsterList LoadMonsterList()
     {
         f_Name = "MonsterList.xml";
@@ -147,7 +153,6 @@ public class DataManager : DataTools {
 
         return d_ItemList;
     }
-
     public ItemData LoadItemData(string itemName)
     {
         ItemList d_ItemList = LoadItemList();
@@ -226,6 +231,7 @@ public class DataManager : DataTools {
 
         return d_TileCard;
     }
+
     public BattleCardLIst LoadBattleCardList()
     {
         f_Name = "BattleCardLIst.xml";
@@ -234,7 +240,6 @@ public class DataManager : DataTools {
 
         return d_BattleCardLIst;
     }
-
     public BattleCard LoadBattleCardData(string battleCardName)
     {
         BattleCardLIst d_BattleCardLIst = LoadBattleCardList();
@@ -248,7 +253,5 @@ public class DataManager : DataTools {
 
         return d_BattleCard;
     }
-
-
 
 }
