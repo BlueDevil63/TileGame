@@ -69,6 +69,7 @@ public class Player : MonoBehaviour {
     public void InGamePopCard()
     {
         handCard.Add(deck.Pop());
+        Debug.Log("이름확인 = " + handCard[3].cardName);
         pGUI.inGameCardScroll.PopCard(this);
     }
 
@@ -113,10 +114,10 @@ public class TempDeck
 
     public void Init()
     {
-        village = new TileCard("villiage", TileType.VILLIAGE, 1, "Villiage", "Prefabs/prfVilliage");
-        dungeon = new TileCard("dungeon", TileType.DUNGEON, 2, "Dungeon", "Prefabs/prfDungeon");
-        cave = new TileCard("cave", TileType.CAVE, 3, "Cave", "Prefabs/prfCave");
-        forest = new TileCard("forest", TileType.FOREST, 4, "Forest", "Prefabs/prfForest");
+        village = new TileCard("Villiage", TileType.VILLIAGE, 1, "Villiage", "Prefabs/prfVilliage");
+        dungeon = new TileCard("Dungeon", TileType.DUNGEON, 2, "Dungeon", "Prefabs/prfDungeon");
+        cave = new TileCard("Cave", TileType.CAVE, 3, "Cave", "Prefabs/prfCave");
+        forest = new TileCard("Forest", TileType.FOREST, 4, "Forest", "Prefabs/prfForest");
 
     }
 

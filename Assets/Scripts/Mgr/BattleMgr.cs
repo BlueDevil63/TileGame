@@ -32,6 +32,7 @@ public class BattleMgr : MonoBehaviour {
 
         //m_DungeonMgr = new DungeonMgr();
         m_DungeonMgr = new TempDungeonMgr();
+        m_DungeonMgr.GenerateDungeon();
         LoadDatas();      //던전데이터 불러오기
                           //플레이어의 정보를 불러오고의 데이터를 통해 GUI 세팅
         SettingThePlayer();
@@ -47,7 +48,7 @@ public class BattleMgr : MonoBehaviour {
 
     private void LoadDatas()
     {
-        //m_DungeonMgr.Generate();
+       // m_DungeonMgr.Generate();
 
     }
 

@@ -112,6 +112,7 @@ public class TileMapMouse : MonoBehaviour {
                 {
                     CreateTile();
                     GameManager.instance.mData.data[mousePos_x, mousePos_z].build = true;
+                    GameManager.instance.mData.data[mousePos_x, mousePos_z].tileName = GameManager.instance.selectTileName;
                     //GameManager.instance.mData.data[buildPos_x * GameManager.instance.mData.size_x + buildPos_z - 1].build = true;
                     buildPos_x = mousePos_x;
                     buildPos_z = mousePos_z;

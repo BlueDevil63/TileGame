@@ -23,6 +23,7 @@ public class GameManager //: DataTools
     //세이브 & 로드
     public DataManager m_DataManager = new DataManager();
     public string dungeonName;
+   
     public PlayerData p_Data;
     public TileMapdData mData = null;
     //최대 덱의 수
@@ -31,11 +32,13 @@ public class GameManager //: DataTools
     public int pIndex;
     public Player _player;
 
+    public string selectTileName;
     public int loadCount = 0;
     public int cardNumber;
     public bool isSelect = false;
 
     public void SelectCard(int number){
+
         cardNumber = number;
         isSelect = true;
     }

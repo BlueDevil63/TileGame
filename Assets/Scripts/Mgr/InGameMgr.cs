@@ -128,6 +128,7 @@ public class InGameMgr :MonoBehaviour {
         if (GameManager.instance.isSelect == true)
         {
             tileObj = Resources.Load( GameManager.instance._player.handCard[GameManager.instance.cardNumber].prfObjAddress) as GameObject;
+            GameManager.instance.selectTileName = GameManager.instance._player.handCard[GameManager.instance.cardNumber].cardName;
         }
 
        if (isBuild)
@@ -180,7 +181,7 @@ public class InGameMgr :MonoBehaviour {
                     gState = InGameState.Ready;
                     Debug.Log(buildType.ToString());
                     //플레이어의 위치를 통해 현재 타일의 정보를 임시적으로 저장시킨다.
-                    
+                    GameManager.instance.dungeonName = GameManager.instance.selectTileName;
                     GameManager.instance.LoadBattleScene();
                     buildType = TileType.NONE;
                 }

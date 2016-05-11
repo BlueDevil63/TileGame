@@ -34,4 +34,9 @@ public class MonsterBasic : BlackBoard {
 	void Update () {
 	
 	}
+    //public MonsterBasic() { }
+    //public MonsterBasic(string vname, float vlevel, float vDef, float vHP, float vMP, List<string> at, List<string> df, List<string> sk, int st, int vExtra)
+    //{
+
+    //}
 }

@@ -145,12 +145,12 @@ public class CreateData : MonoBehaviour {
         mDataBase.monsterList = new List<MonsterData>();
 
         MonsterData mData = new MonsterData();
-        mData.charName = "Monkey";
+        mData.charName = "Evil Mushroom";
         mData.level = 1;
         mData.def = 1.5f;
         mData.hp = 1.5f;
         mData.mp = 1.0f;
-
+        mData.modelAdress = "ProtoAsset/Forest Creatures Pack/Evil Mushroom/Prefabs/Evil Mushroom-Blue";
         mData.attackList = new List<string>();
         mData.attackList.Add("Punch");
         mData.defenseList = new List<string>();
