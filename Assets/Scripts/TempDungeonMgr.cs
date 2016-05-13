@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using DataSpace;
 using DataSpace.Battle;
 using Dungeon;
-public class TempDungeonMgr {
+public class TempDungeonMgr : MonoBehaviour {
 
-    protected DungeonTile[] dungeon;
+    //protected DungeonTile[] dungeon;
     protected GameObject[] tileObj;
     protected GameObject dungeonTileObj;
     protected DungeonData m_dungeonData;
@@ -18,7 +18,7 @@ public class TempDungeonMgr {
 
     private float tileTerm = 30f; //타일간의 간격
 
-
+    //던전생성을 담당
     public void GenerateDungeon()
     {
         LoadDungeonData();
@@ -29,11 +29,12 @@ public class TempDungeonMgr {
         Tiling(m_dungeonData.dungeonLength);
         PositioningMonster(m_dungeonData.dungeonLength, m_dungeonData.dungeonLevel);
     }
-
+    //데이터 불러오기
     private void LoadDungeonData()
     {
         m_dungeonData = GameManager.instance.m_DataManager.LoadDungeonData(GameManager.instance.dungeonName);
     }
+    //몬스터 정보 추출
     private void LoadMonsterList()
     {
         monsterList1 = new List<GameObject>();
@@ -65,6 +66,7 @@ public class TempDungeonMgr {
     //몬스터를 찾아서 해당 리스트에 넣어준다.
     private void SearchMonsterData(List<string> level, List<MonsterData> mList, int levelCount)
     {
+      //  Debug.Log("level.Count = " + level.Count);
         GameObject monster = new GameObject();
         for (int k = 0; k < level.Count; k++)
         {
@@ -75,10 +77,8 @@ public class TempDungeonMgr {
                 {
                     //정보에서 리소스주소를 찾아서 몬스터를 생성해준다.
                     monster = Resources.Load<GameObject>(mList[i].modelAdress);
-                    monster.AddComponent<MonsterBasic>();       //몬스터 AI에 해당하는 부분을 넣어줌
-                    MonsterBasic m_Ai = monster.GetComponent<MonsterBasic>();   //할당
-                    m_Ai = MoveMonsterData(m_Ai, mList[i]);                     //데이터를 이전
-                    switch(levelCount)                                          //맞는 리스트에 넣어줌
+
+                    switch(levelCount)                        //맞는 리스트에 넣어줌
                     {
                         case 1:
                             monsterList1.Add(monster);
@@ -155,84 +155,93 @@ public class TempDungeonMgr {
     {
         Vector3 pos = new Vector3(0, 0, 0);
         tileObj = new GameObject[length];
-        dungeon = new DungeonTile[length];
+        //dungeon = new DungeonTile[length];
         for(int k = 0;  k< length; k++)
         {
             pos.z = k * tileTerm;
-            tileObj[k] = GameObject.Instantiate(dungeonTileObj, pos, dungeonTileObj.transform.rotation) as GameObject;
+            tileObj[k] = (GameObject)Instantiate(dungeonTileObj, pos, dungeonTileObj.transform.rotation);
             tileObj[k].transform.parent = dungeonParent.transform;
-            dungeon[k] = tileObj[k].GetComponent<DungeonTile>();
+            tileObj[k].name = k.ToString();
+           // dungeon[k] = tileObj[k].GetComponent<DungeonTile>();
+           
         }
     }
     //몬스터를 배치시킨다.
     private void PositioningMonster(int length, int level)
     {
-        int divid = length / level;
-        for(int k = 0; k<length; )
+        int divid = length / level;         //나눈값
+        int remain = length % level;        //나머지값 마지막 레벨은 이정도만 반복
+        ///만약 5인데 레벨이 3단계라면, 
+        ///2 2 1 씩된다.
+        ///
+        //int reDivid = remain / (level - divid);
+        int number = 0;     //타일의 넘버
+        for (int i = 1; i <= level; i++)
         {
-            if(k<divid)
+            if ((divid * level) >= length) 
             {
-                k = PositioningDungeon(k, 1);
-            }
-           
-            else if(level >2)
-            {
-                if(k>=divid*2)
+                if ((number + 1) != (length - remain))
                 {
-
+                    for (int k = 0; k < divid; k++)
+                    {
+                        number = PositioningDungeon(number, i);
+                    }
+                }
+                else
+                {
+                    number = PositioningDungeon(number, i);
                 }
             }
             else
             {
-
+                int ca = 0;
+                if (i == level)
+                    ca = remain;
+                for (int k = 0; k < divid +ca; k++)
+                {
+                    number = PositioningDungeon(number, i);
+                }
             }
         }
     }
     private int PositioningDungeon(int value, int level)
     {
+        Debug.Log(value);
         int rand = 0;
-        Debug.Log("몬스터 개수 체크" + monsterList1.Count);
-        Debug.Log(monsterList1[0].name);
-        Debug.Log(monsterList1[1].name);
+        MonsterList mList = GameManager.instance.m_DataManager.LoadMonsterList();
+        DungeonTile dungeon = tileObj[value].GetComponent<DungeonTile>();
+        dungeon.Init();
         for(int m = 0;  m<3; m++)
         {
-            GameObject monster = new GameObject();
+           // GameObject monster = new GameObject();
             switch (level)
             {
                 case 1:
-                    rand = Random.Range(0, monsterList1.Count+1);
-                    Debug.Log("랜덤으로 나온 변수= " + rand);
-                    monster = GameObject.Instantiate(monsterList1[rand]
-                        ,dungeon[value].spawnPoint[m].transform.position
-                        ,dungeon[value].spawnPoint[m].transform.rotation) as GameObject;
-                    
+                    rand = Random.Range(0, monsterList1.Count);
+                    Debug.Log("랜덤으로 나온수 = " + rand);
+                    Debug.Log("몬스터리스트의 사이즈 = " + monsterList1.Count );
+                    dungeon.GenerateMonster(monsterList1[rand]);
                     break;
                 case 2:
-                    rand = Random.Range(0, monsterList2.Count - 1);
-                    Debug.Log("랜덤으로 나온 변수= " + rand);
-                    monster = GameObject.Instantiate(monsterList2[rand]
-                        , dungeon[value].spawnPoint[m].transform.position
-                        , dungeon[value].spawnPoint[m].transform.rotation) as GameObject;
+                    rand = Random.Range(0, monsterList2.Count);
+                    dungeon.GenerateMonster(monsterList2[rand]);
                     break;
                 case 3:
-                    rand = Random.Range(0, monsterList3.Count - 1);
-                    Debug.Log("랜덤으로 나온 변수= " + rand);
-                    monster = GameObject.Instantiate(monsterList3[rand]
-                        , dungeon[value].spawnPoint[m].transform.position
-                        , dungeon[value].spawnPoint[m].transform.rotation) as GameObject;
+                    rand = Random.Range(0, monsterList3.Count);
+                    dungeon.GenerateMonster(monsterList3[rand]);
                     break;
                 case 4:
-                    rand = Random.Range(0, monsterList4.Count - 1);
-                    Debug.Log("랜덤으로 나온 변수= " + rand);
-                    monster = GameObject.Instantiate(monsterList4[rand]
-                        , dungeon[value].spawnPoint[m].transform.position
-                        , dungeon[value].spawnPoint[m].transform.rotation) as GameObject;
+                    rand = Random.Range(0, monsterList4.Count);
+                    dungeon.GenerateMonster(monsterList4[rand]);
                     break;
             }
-            dungeon[value].monsters[m] = monster;
+            dungeon.monsters[m].AddComponent<MonsterBasic>(); //몬스터 AI에 해당하는 부분을 넣어줌
+            MonsterBasic m_Ai = dungeon.monsters[m].GetComponent<MonsterBasic>();   //할당
+            m_Ai = MoveMonsterData(m_Ai, mList.monsterList[m]);                     //데이터를 이전
 
         }
-        return value++;
+        value += 1;
+        return value;
     }
 	
 }

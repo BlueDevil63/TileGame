@@ -1,1 +1,81 @@
-﻿<?xml version="1.0" encoding="utf-8"?><MonsterList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><monsterList><MonsterData><charName>Evil Mushroom</charName><level>1</level><def>1.5</def><hp>1.5</hp><mp>1</mp><modelAdress>ProtoAsset/Forest Creatures Pack/Evil Mushroom/Prefabs/Evil Mushroom-Blue</modelAdress><attackList><string>Punch</string></attackList><defenseList><string>None</string></defenseList><skillList><string>Apeal</string></skillList><style>1</style><extra>None</extra></MonsterData></monsterList></MonsterList>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MonsterList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <monsterList>
+    <MonsterData>
+      <charName>Evil Mushroom</charName>
+      <level>1</level>
+      <def>1.5</def>
+      <hp>1.5</hp>
+      <mp>1</mp>
+      <modelAdress>ProtoAsset/Forest Creatures Pack/Evil Mushroom/Prefabs/Evil Mushroom-Blue</modelAdress>
+      <attackList>
+        <string>Punch</string>
+      </attackList>
+      <defenseList>
+        <string>None</string>
+      </defenseList>
+      <skillList>
+        <string>Apeal</string>
+      </skillList>
+      <style>1</style>
+      <extra>None</extra>
+    </MonsterData>
+    <MonsterData>
+      <charName>Nymph Fairy</charName>
+      <level>1</level>
+      <def>1.5</def>
+      <hp>1.5</hp>
+      <mp>1</mp>
+      <modelAdress>ProtoAsset/Forest Creatures Pack/Nymph Fairy/Prefabs/Nymph Fairy-Blue</modelAdress>
+      <attackList>
+        <string>Punch</string>
+      </attackList>
+      <defenseList>
+        <string>None</string>
+      </defenseList>
+      <skillList>
+        <string>Apeal</string>
+      </skillList>
+      <style>1</style>
+      <extra>None</extra>
+    </MonsterData>
+    <MonsterData>
+      <charName>Forest Wolf</charName>
+      <level>1</level>
+      <def>1.5</def>
+      <hp>1.5</hp>
+      <mp>1</mp>
+      <modelAdress>ProtoAsset/Forest Creatures Pack/Forest Wolf/Prefabs/Forest Wolf - Blue</modelAdress>
+      <attackList>
+        <string>Punch</string>
+      </attackList>
+      <defenseList>
+        <string>None</string>
+      </defenseList>
+      <skillList>
+        <string>Apeal</string>
+      </skillList>
+      <style>1</style>
+      <extra>None</extra>
+    </MonsterData>
+    <MonsterData>
+      <charName>Monster Bee</charName>
+      <level>1</level>
+      <def>1.5</def>
+      <hp>1.5</hp>
+      <mp>1</mp>
+      <modelAdress>ProtoAsset/Forest Creatures Pack/Monster Bee/Prefabs/Monster Bee-Blue</modelAdress>
+      <attackList>
+        <string>Punch</string>
+      </attackList>
+      <defenseList>
+        <string>None</string>
+      </defenseList>
+      <skillList>
+        <string>Apeal</string>
+      </skillList>
+      <style>1</style>
+      <extra>None</extra>
+    </MonsterData>
+  </monsterList>
+</MonsterList>
