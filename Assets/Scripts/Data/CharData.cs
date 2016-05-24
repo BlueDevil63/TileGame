@@ -9,7 +9,16 @@ using CardCollections;
 namespace DataSpace
 {
     [System.Serializable]
-    public class CharterData
+    public struct CardStruct
+    {
+        [XmlElement("indexNumber")]
+        public int indexNumber;
+        [XmlElement("cout")]
+        public int count;
+    }
+
+    [System.Serializable]
+    public class CharacterData
     {
         [XmlElement("charName")]
         public string charName;
@@ -17,31 +26,42 @@ namespace DataSpace
         public float level;
         [XmlElement("def")]
         public float def;
-        [XmlElement("hp")]
-        public float hp;
-        [XmlElement("mp")]
-        public float mp;
+        [XmlElement("maxHp")]
+        public float maxHp;
+        [XmlElement("dHp")]
+        public float dHp;
+        [XmlElement("maxMp")]
+        public float maxMp;
+        [XmlElement("dMp")]
+        public float dMp;
         [XmlElement("modelAdress")]
         public string modelAdress;
     }
     [System.Serializable]
-    public class PlayerData : CharterData
+    public class PlayerData : CharacterData
     {
         [XmlArray("d_TCList")]
-        [XmlArrayItem("string")]
-        public List<string> d_TCList;
+        [XmlArrayItem("CardStruct")]
+        public List<CardStruct> d_TCList;
         [XmlArray("d_TCDeck")]
-        [XmlArrayItem("string")]
-        public List<string> d_TCDeck;
+        [XmlArrayItem("int")]
+        public List<int> d_TCDeck;
+        [XmlArray("d_TCHand")]
+        [XmlArrayItem("int")]
+        public List<int> d_TCHand;
         [XmlArray("d_BCList")]
-        [XmlArrayItem("string")]
-        public List<string> d_BCList;
+        [XmlArrayItem("CardStruct")]
+        public List<CardStruct> d_BCList;
         [XmlArray("d_BCDeck")]
-        [XmlArrayItem("string")]
-        public List<string> d_BCDeck;
+        [XmlArrayItem("int")]
+        public List<int> d_BCDeck;
+        [XmlArray("d_BCHand")]
+        [XmlArrayItem("int")]
+        public List<int> d_BCHand;
+
     }
 
-    public class MonsterData : CharterData
+    public class MonsterData : CharacterData
     {
         [XmlArray("attackList")]
         [XmlArrayItem("string")]

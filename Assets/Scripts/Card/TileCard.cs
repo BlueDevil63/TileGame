@@ -10,6 +10,8 @@ namespace CardCollections
     [System.Serializable]
     public class CardBase
     {
+        [XmlElement("indexNumber")]
+        public int indexNumber;
         [XmlElement("cardName")]
         public string cardName;
         [XmlElement("image")]
@@ -27,8 +29,9 @@ namespace CardCollections
 
         public TileCard() { }
 
-        public TileCard(string n, TileType t, int id, string im, string address)
+        public TileCard(int index, string n, TileType t, int id, string im, string address)
         {
+            indexNumber = index;
             cardName = n;
             type = t;
             eventID = id;

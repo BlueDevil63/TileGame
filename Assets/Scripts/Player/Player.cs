@@ -3,23 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TileCollections;
 using CardCollections;
+using DataSpace;
 
 public class Player : MonoBehaviour {
 
-    public string charName;
-    public float level;
-    public float def;
-    public float maxHp;
-    public float maxMp;
-
+    public PlayerData status;
     public int actPoint;
-    public Deck deck;
+    public TileDeck tileDeck;
     public List<TileCard> handCard;
     public BattleDeck battleDeck;
     public List<BattleCard> battleHands;
-
-    public float cHp;
-    public float cMp;
 
     public TileCard selectCard;
     public int pos_x;
@@ -29,47 +22,43 @@ public class Player : MonoBehaviour {
    
     public void InGameInit() {
 
+        status = new PlayerData();
         pGUI = gameObject.GetComponent<PlayerGUI>();
-        
-        deck = new Deck();
+        actPoint = 0;
+        tileDeck = new TileDeck();
         handCard = new List<TileCard>();
         battleDeck = new BattleDeck();
         battleHands = new List<BattleCard>();
-        selectCard = new TileCard(string.Empty, TileType.NONE, 0, string.Empty, null);
-        //name = "BlueTeam";
-
-        deck.Init();
-        deck.Mix();
-
+        selectCard = new TileCard(0,string.Empty, TileType.NONE, 0, string.Empty, null);
+        tileDeck.Init();
         pos_x = 0;
         pos_y = 0;
-
-        for(int i = 0; i < 5; i++)
-        {
-            handCard.Add(deck.Pop());
-        }
+     
     }
 
     public void InGameStart()
     {
         pGUI.Init();
-        pGUI.HpUpDate(maxHp, 0);
-        pGUI.MpUpDate(maxMp, 0);
+        //덱 삽입
+        tileDeck.Set(status.d_TCDeck);
+        pGUI.HpUpDate(status.maxHp, 0);
+        pGUI.MpUpDate(status.maxMp, 0);
         pGUI.inGameCardScroll.SetUpCard(this);
     }
 
     public void BattleStart()
     {
         pGUI.Init();
-        pGUI.HpUpDate(maxHp, 0);
-        pGUI.MpUpDate(maxMp, 0);
+        battleDeck.Set(status.d_BCDeck);
+        pGUI.HpUpDate(status.maxHp, 0);
+        pGUI.MpUpDate(status.maxMp, 0);
         pGUI.battleCardScroll.SetUpCard(this);
     }
 
     public void InGamePopCard()
     {
-        handCard.Add(deck.Pop());
-        Debug.Log("이름확인 = " + handCard[3].cardName);
+        handCard.Add(tileDeck.Pop());
+       // Debug.Log("이름확인 = " + handCard[3].cardName);
         pGUI.inGameCardScroll.PopCard(this);
     }
 
@@ -85,65 +74,111 @@ public class Player : MonoBehaviour {
         pGUI.inGameCardScroll.UseCard(this);
         return type;
     }
-
-
-    //public int CheckSelected()
-    //{
-    //    int number = -1;
-    //    for(int n = 0; n <= handCard.Count; n++ )
-    //    {
-    //       if( handCard[n].selected == true )
-    //        {
-    //            number = n;
-    //        }
-    //    }
-
-    //    return number;
-    //}
 }
 
-
-public class TempDeck
+public class TileDeck
 {
-    public List<TileCard> deck = new List<TileCard>();
-
-    TileCard village = new TileCard();
-    TileCard dungeon = new TileCard();
-    TileCard cave = new TileCard();
-    TileCard forest = new TileCard();
+    public Stack<TileCard> deck;
 
     public void Init()
     {
-        village = new TileCard("Villiage", TileType.VILLIAGE, 1, "Villiage", "Prefabs/prfVilliage");
-        dungeon = new TileCard("Dungeon", TileType.DUNGEON, 2, "Dungeon", "Prefabs/prfDungeon");
-        cave = new TileCard("Cave", TileType.CAVE, 3, "Cave", "Prefabs/prfCave");
-        forest = new TileCard("Forest", TileType.FOREST, 4, "Forest", "Prefabs/prfForest");
-
+        deck = new Stack<TileCard>();
+    }
+    public void Set(List<int> intDeck)
+    {
+        List<TileCard> list = new List<TileCard>();
+        for(int i = 0; i< intDeck.Count; i++)
+        {
+            list.Add(GameManager.instance.d_TileCardList.tileCards[intDeck[i]]);
+        }
+        Mix(list);
     }
 
-    public void Setting()
+    public void Mix(List<TileCard> original)
     {
-
-        Init();
-        for (int k = 0; k < 30; k++)
+        //중복 체크용
+        bool[] checkExistofNum = new bool[40];
+        for (int k = 0; k < 40; k++)
         {
-            if (k < 7)
+            checkExistofNum[k] = false;
+        }
+
+        for (int i = 0; i < 40;)
+        {
+            int nTemp = Random.Range(0, 39);
+            if (checkExistofNum[i] == false)
             {
-                deck.Add(village);
-            }
-            else if (k < 14)
-            {
-                deck.Add(dungeon);
-            }
-            else if (k < 21)
-            {
-                deck.Add(cave);
-            }
-            else
-            {
-                deck.Add(forest);
+                deck.Push(original[nTemp]);
+                checkExistofNum[i] = true;
+                i++;
+
             }
         }
+
+    }
+    public void Remix()
+    {
+
+    }
+    public TileCard Pop()
+    {
+        TileCard popCard = deck.Pop();
+        return popCard;
+    }
+    public void Push(TileCard card)
+    {
+        deck.Push(card);
+    }
+}
+
+public class BattleDeck
+{
+    public Stack<BattleCard> deck;
+
+    public void Init()
+    {
+        deck = new Stack<BattleCard>();
+    }
+    public void Set(List<int> intDeck)
+    {
+        List<BattleCard> list = new List<BattleCard>();
+        for (int i = 0; i < intDeck.Count;)
+        {
+            list.Add(GameManager.instance.d_BattleCardList.battleCards[intDeck[i]]);
+        }
+        Mix(list);
     }
 
+    public void Mix(List<BattleCard> original)
+    {
+
+        //중복 체크용
+        bool[] checkExistofNum = new bool[50];
+        for (int k = 0; k < 50; k++)
+        {
+            checkExistofNum[k] = false;
+        }
+
+        for (int i = 0; i < 50;)
+        {
+            int nTemp = Random.Range(0, 49);
+            if (checkExistofNum[i] == false)
+            {
+                deck.Push(original[nTemp]);
+                checkExistofNum[i] = true;
+                i++;
+
+            }
+        }
+
+    }
+    public BattleCard Pop()
+    {
+        BattleCard popCard = deck.Pop();
+        return popCard;
+    }
+    public void Push(BattleCard card)
+    {
+        deck.Push(card);
+    }
 }

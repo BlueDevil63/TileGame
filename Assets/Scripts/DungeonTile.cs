@@ -32,8 +32,16 @@ namespace Dungeon
                 monsters[size] = Instantiate(originalObj,
                     spawnPoint[size].transform.position,
                     spawnPoint[size].transform.rotation) as GameObject;
+                monsters[size].transform.parent = gameObject.transform;
                 size++;
-                //monsters[size].transform.parent = gameObject.transform;
+
+            }
+        }
+        public void ActiveControlAllMonster(bool act)
+        {
+            for(int k =0; k < monsters.Length; k++)
+            {
+                monsters[k].SetActive(act);
             }
         }
 

@@ -234,9 +234,9 @@ public class DataManager : DataTools {
 
     public BattleCardLIst LoadBattleCardList()
     {
-        f_Name = "BattleCardLIst.xml";
+        f_Name = "BattleCardList.xml";
         f_Data = LoadXML(f_Name, f_Location);
-        BattleCardLIst d_BattleCardLIst = (BattleCardLIst)DeserializeObject(f_Data, "BattleCardLIst");
+        BattleCardLIst d_BattleCardLIst = (BattleCardLIst)DeserializeObject(f_Data, "BattleCardList");
 
         return d_BattleCardLIst;
     }

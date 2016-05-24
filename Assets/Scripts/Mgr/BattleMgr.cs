@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using DataSpace.Battle;
 using DataSpace;
 using Dungeon;
@@ -22,34 +23,107 @@ using System.Collections.Generic;
 /// 0 좌 1 중앙 2 우측
 public class BattleMgr : MonoBehaviour {
 
-    public GameObject TilePrefab;
-    public List<GameObject> dTileList;
 
+    private static BattleMgr _instance;
+    public static BattleMgr instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                // Debug.LogError("GameManager = null!!");
+                _instance = new BattleMgr();
+            }
+            return _instance;
+        }
+    }
+
+    public GameObject tilePrefab;
+    //public List<GameObject> dTileList;
+    public GameObject playerObj;   
     // protected DungeonMgr m_DungeonMgr;
-    protected TempDungeonMgr m_DungeonMgr;
+    protected DungeonMgr m_DungeonMgr;
+    private int currentPos;
+    private BattleUI uiMgr;
+    private Player s_Player;
+    private enum EnumProgress
+    {
+       StartDungeon,
+       DecideAct,
+       BattleBegin,
+       BattleEnd,
+       EndDungeon
+    }
+    private enum EnumBattle
+    {
+        MonsterAppear,
+        DecideSeqaunece,
+        SeqaunceInTurn,
+        Result
+    }
+    delegate void Progress();   //현재 던전 진행
+    Dictionary<EnumProgress, Progress> dic_Progress = new Dictionary<EnumProgress, Progress>();
+    EnumProgress e_Progress;
+    delegate void Battle();     //현재 배틀의 순서대로의 진행
+    Dictionary<EnumBattle, Battle> dic_Battle = new Dictionary<EnumBattle, Battle>();
+    EnumBattle e_Battle;
+
     // Use this for initialization
     void Start() {
-
+        SetProgress();
+        e_Progress = EnumProgress.StartDungeon;
+        SetBattle();
+        e_Battle = EnumBattle.MonsterAppear;
+        currentPos = 0;
         //m_DungeonMgr = new DungeonMgr();
-        m_DungeonMgr = gameObject.AddComponent<TempDungeonMgr>();
+        m_DungeonMgr = gameObject.AddComponent<DungeonMgr>();
         m_DungeonMgr.GenerateDungeon();
+        m_DungeonMgr.PositionLoad(currentPos);
         LoadDatas();      //던전데이터 불러오기
                           //플레이어의 정보를 불러오고의 데이터를 통해 GUI 세팅
         SettingThePlayer();
+       // uiMgr.Init();
+        uiMgr.InsertMonster(m_DungeonMgr.curMonsters);
     }
 
     // Update is called once per frame
     void Update() {
         ///업데이트 순서
-        ///1. 순서 정하기 : 플레이어와 몬스터중의 우선공격관 확인하기
-        ///2. 차례대로 행동
-        ///3. 타일의 몬스터 제거 -> 던전이 당겨지고 던전타일이 맨뒤에 추가(타일 생성 -> 몬스터 추가)
+        ///1. 던전 시작하기(알림, 혹은 경고등장)
+        ///2. 행동선택, 이동 or 회복
+        ///3. 배틀시작(텍스트 : 수폴속에서 뭔가가 나왔다!! 등)
+        ///    --> Battle 진행
+        ///     
+        ///4. 배틀 종료
+        ///5. 던전이 끝인가? 아니라면 다시 행동선택
+
+        dic_Progress[e_Progress]();
+    }
+
+    private void SetProgress()
+    {
+        dic_Progress[EnumProgress.StartDungeon] = StartDungeon;
+        dic_Progress[EnumProgress.DecideAct] = DecideAct;
+        dic_Progress[EnumProgress.BattleBegin] = BattleBegin;
+        dic_Progress[EnumProgress.BattleEnd] = BattleEnd;
+        dic_Progress[EnumProgress.EndDungeon] = EndDungeon;
+    }
+
+    private void SetBattle()
+    {
+        dic_Battle[EnumBattle.MonsterAppear] = MonsterAppear;
+        dic_Battle[EnumBattle.DecideSeqaunece] = DecideSeqaunece;
+        dic_Battle[EnumBattle.SeqaunceInTurn] = SeqaunceInTurn;
+        dic_Battle[EnumBattle.Result] = Result;
+
     }
 
     private void LoadDatas()
     {
-       // m_DungeonMgr.Generate();
-
+        s_Player = playerObj.GetComponent<Player>();
+        s_Player.InGameInit();
+        s_Player = GameManager.instance.LoadMgrPlayerData(s_Player);
+        
     }
 
     private void SettingThePlayer()
@@ -57,7 +131,50 @@ public class BattleMgr : MonoBehaviour {
 
     }
 
+    private void StartDungeon()
+    {
 
+    }
+
+    private void DecideAct()
+    {
+
+    }
+
+    private void BattleBegin()
+    {
+
+    }
+
+    private void BattleEnd()
+    {
+
+    }
+
+    private void EndDungeon()
+    {
+
+    }
+
+    private void MonsterAppear()
+    {
+
+    }
+
+    private void DecideSeqaunece()
+    {
+
+    }
+
+    private void SeqaunceInTurn()
+    {
+
+    }
+
+    private void Result()
+    {
+
+    }
 
 
 }

@@ -113,12 +113,9 @@ public class TileMapMouse : MonoBehaviour {
                     CreateTile();
                     GameManager.instance.mData.data[mousePos_x, mousePos_z].build = true;
                     GameManager.instance.mData.data[mousePos_x, mousePos_z].tileName = GameManager.instance.selectTileName;
-                    //GameManager.instance.mData.data[buildPos_x * GameManager.instance.mData.size_x + buildPos_z - 1].build = true;
                     buildPos_x = mousePos_x;
                     buildPos_z = mousePos_z;
-                    //mgr.mData.data[mousePos_x, mousePos_z].type = mgr.buildType;
                     Debug.Log("CreateTile");
-                    //Debug.Log(mgr.mData.data[mousePos_x, mousePos_z].type = mgr.buildType);
                 }
             }
         }
@@ -139,6 +136,8 @@ public class TileMapMouse : MonoBehaviour {
     }
     public void SetBuildType(TileType type)
     {
+        //Debug.Log("빌드된 위치 x = " + buildPos_x + "y = " + buildPos_z);
+        //Debug.Log("타입 = " + GameManager.instance.mData.data[buildPos_x, buildPos_z].type.ToString());
         GameManager.instance.mData.data[buildPos_x , buildPos_z].type = type;
     }
 }

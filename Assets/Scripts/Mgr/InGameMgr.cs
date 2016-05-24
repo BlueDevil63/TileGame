@@ -30,6 +30,7 @@ public class InGameMgr :MonoBehaviour {
     public bool isBuild;
 
     public GameObject _playerObj;
+    private Player s_Player;
 
     [HideInInspector]
     public GameObject tileObj;
@@ -67,13 +68,13 @@ public class InGameMgr :MonoBehaviour {
         isBuild = false;                   //카드를 설치했는가?
 
         gState = InGameState.SetGame;
-       
     }
 
 
     void Update()
     {
         inGameDic[gState]();
+       // Debug.Log("x좌표 = " + s_Player.pos_x + "z좌표 = " + s_Player.pos_y);
     }
 
 
@@ -89,12 +90,18 @@ public class InGameMgr :MonoBehaviour {
 
         if (GameManager.instance.loadCount == 0)
         {
-            GameManager.instance._player = _playerObj.GetComponent<Player>();
-            GameManager.instance.LoadPlayerData();
-            Debug.Log("처음");
+            GameManager.instance.LoadTileCardList();
+            GameManager.instance.LoadBattleCardList();
+            s_Player = _playerObj.GetComponent<Player>();
             buildType = TileType.NONE;
-            GameManager.instance._player.InGameInit();
-            GameManager.instance._player.InGameStart();
+            s_Player.InGameInit();
+            s_Player = GameManager.instance.LoadPlayerData("Devil", s_Player);
+
+            s_Player.InGameStart();
+            for(int i = 0;  i< 5; i++)
+            {
+                s_Player.InGamePopCard();
+            }
             GameManager.instance.pIndex = 0;
             GameManager.instance.loadCount++;
         }
@@ -109,8 +116,8 @@ public class InGameMgr :MonoBehaviour {
     private void PopCard()
     {
         curAct.text = "카드 드로우";
-       // GameManager.instance._player = GameManager.instance.playerList[GameManager.instance.pIndex];
-        GameManager.instance._player.InGamePopCard();
+        // GameManager.instance._player = GameManager.instance.playerList[GameManager.instance.pIndex];
+        s_Player.InGamePopCard();
 
         gState = InGameState.UseCard;
     }
@@ -120,20 +127,24 @@ public class InGameMgr :MonoBehaviour {
         buildMode = true;
         curAct.text = "카드 사용";
 
-        
-        if (GameManager.instance._player.selectCard.cardName != string.Empty)
+        //누른 카드가 빈카드가 아니라면
+        if (s_Player.selectCard.cardName != string.Empty)
         {
              GameManager.instance.isSelect = true;
         }
+        
         if (GameManager.instance.isSelect == true)
         {
-            tileObj = Resources.Load( GameManager.instance._player.handCard[GameManager.instance.cardNumber].prfObjAddress) as GameObject;
-            GameManager.instance.selectTileName = GameManager.instance._player.handCard[GameManager.instance.cardNumber].cardName;
+            //타일 오브젝트 연결
+            Debug.Log(s_Player.handCard[GameManager.instance.cardNumber].prfObjAddress);
+            tileObj = Resources.Load(s_Player.handCard[GameManager.instance.cardNumber].prfObjAddress) as GameObject;
+            GameManager.instance.selectTileName = s_Player.handCard[GameManager.instance.cardNumber].cardName;
+            buildType = s_Player.handCard[GameManager.instance.cardNumber].type;
         }
 
        if (isBuild)
         {
-            buildType = GameManager.instance._player.Build(GameManager.instance.cardNumber);
+            s_Player.Build(GameManager.instance.cardNumber);
             mouse.SetBuildType(buildType);
             move.Init();
             gState = InGameState.MovePlayer;
@@ -153,8 +164,8 @@ public class InGameMgr :MonoBehaviour {
        if(move.Move(_playerObj, GameManager.instance.mData))
         {
             Debug.Log("이동완료");
-            GameManager.instance._player.pos_x = move.PosX();
-            GameManager.instance._player.pos_y = move.PosY();
+            s_Player.pos_x = move.PosX();
+            s_Player.pos_y = move.PosY();
             movePanel.SetActive(false);
             act.Init();
             gState = InGameState.ActPlayer;
@@ -164,9 +175,9 @@ public class InGameMgr :MonoBehaviour {
     private void ActPlayer()
     {
         curAct.text = "행동 선택";
-        if(act.SelcetAct(GameManager.instance._player, GameManager.instance.mData))
+        if(act.SelcetAct(s_Player, GameManager.instance.mData))
         {
-            Debug.Log(act.mComfirm.ToString());
+          //  Debug.Log(act.mComfirm.ToString());
             if(act.mComfirm)
             {
                 
@@ -182,11 +193,16 @@ public class InGameMgr :MonoBehaviour {
                     Debug.Log(buildType.ToString());
                     //플레이어의 위치를 통해 현재 타일의 정보를 임시적으로 저장시킨다.
                     GameManager.instance.dungeonName = GameManager.instance.selectTileName;
+                    GameManager.instance.SaveMgrPlayerData(s_Player);
                     GameManager.instance.LoadBattleScene();
                     buildType = TileType.NONE;
                 }
                 //GameManager.instance.nextScene = true;
             }
+        }
+        else
+        {
+            Debug.Log("실패");
         }
     }
 

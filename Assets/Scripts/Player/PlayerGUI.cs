@@ -16,7 +16,7 @@ public class PlayerGUI : MonoBehaviour {
     {
         if(GameManager.instance.SceneName() == "InGame")
         {
-            Debug.Log("findScene");
+            Debug.Log("InGame");
             inGameCardScrollObj = GameObject.FindGameObjectWithTag("CardScroll");
             inGameCardScroll = inGameCardScrollObj.GetComponent<CardScroll>();
 
@@ -24,6 +24,7 @@ public class PlayerGUI : MonoBehaviour {
         }
         if (GameManager.instance.SceneName() == "Battle")
         {
+            Debug.Log("Battle");
             battleCardScrollObj = GameObject.FindGameObjectWithTag("CardScroll");
             battleCardScroll = battleCardScrollObj.GetComponent<CardScroll>();
         }

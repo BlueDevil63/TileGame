@@ -9,12 +9,16 @@ namespace TileCollections
 
     public enum TileType
     {
-        NONE,
-        VOID,
-        DUNGEON,
+        VILLIAGE,
         FOREST,
         CAVE,
-        VILLIAGE
+        RIVER,
+        DESERT,
+        MOUNTAIN,
+        PLAIN,
+        DUNGEON,
+        NONE,
+        VOID,
     }
 
     [System.Serializable]

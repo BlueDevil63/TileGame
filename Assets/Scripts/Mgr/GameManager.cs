@@ -4,10 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using DataSpace;
 using DataSpace.Battle;
+using CardCollections;
 using TileCollections;
 
 public class GameManager //: DataTools
 {
+    public struct position
+    {
+       public int x { get; set; }
+       public int z { get; set; }
+    }
     private static GameManager _instance;
     public static GameManager instance {
         get {
@@ -23,14 +29,17 @@ public class GameManager //: DataTools
     //세이브 & 로드
     public DataManager m_DataManager = new DataManager();
     public string dungeonName;
-   
+   //로드된 데이터
     public PlayerData p_Data;
     public TileMapdData mData = null;
+    public TileCardList d_TileCardList;
+    public BattleCardLIst d_BattleCardList;
     //최대 덱의 수
     public const int deckCount = 30;
     //Stack 플레이어 리스트
     public int pIndex;
-    public Player _player;
+    public position pos;
+    //public Player _player;
 
     public string selectTileName;
     public int loadCount = 0;
@@ -95,29 +104,73 @@ public class GameManager //: DataTools
 
         return false;
     }
-
+   
     public void LoadBattleScene()
     {
         //플레이어 HandCard(Tile)을 백업
 
         //현재 타일 맵 데이터를 저장;
         Debug.Log(dungeonName);
-        MapTile tile = mData.data[_player.pos_x, _player.pos_y];
+        MapTile tile = mData.data[pos.x, pos.z];
         //씬 이동
         SceneManager.LoadScene("Battle");
     }
+    public Player LoadPlayerData(string name, Player player)
+    {
+       PlayerData data = m_DataManager.LoadPlayerData(name);
+        
+        player.status = data;
+        
+        
+        // 덱 불러오기
+        for(int dCount = 0; dCount <data.d_TCDeck.Count; dCount++)
+        {
 
-    public void LoadPlayerData()
-    {
-        p_Data = m_DataManager.LoadPlayerData("Blue");
-        _player.charName = p_Data.charName;
-        _player.maxHp = p_Data.hp;
-        _player.maxMp = p_Data.mp;
-        _player.def = p_Data.def;
-        _player.level = p_Data.level;
+        }
+        return player;
     }
-    public void SavePlayerData()
+    public Player LoadMgrPlayerData(Player player)
     {
+        Debug.Log(p_Data.charName);
+        player.status = p_Data;
+        return player;
+    }
+    public void LoadTileCardList()
+    {
+       d_TileCardList =  m_DataManager.LoadTileCardList();
+    }
+    public void LoadBattleCardList()
+    {
+        d_BattleCardList = m_DataManager.LoadBattleCardList();
+    }
+
+    public void SaveMgrPlayerData(Player player)
+    {
+        p_Data = player.status;
+        p_Data.d_TCDeck = new List<int>();
+        TileCard card = new TileCard();
+        if (player.tileDeck.deck.Count != 0)
+        {
+            for (int k = 0; k < player.tileDeck.deck.Count; k++)
+            {
+                card = player.tileDeck.deck.Pop();
+                p_Data.d_TCDeck.Add(card.indexNumber);
+            }
+        }
+
+        p_Data.d_TCHand = new List<int>();
+        for(int k = 0; k< player.handCard.Count; k++)
+        {
+            p_Data.d_TCHand.Add(player.handCard[k].indexNumber);
+        }
+        if(p_Data.d_TCHand.Count == 0 )
+        {
+            p_Data.d_TCHand.Add(-1);
+        }
+        if (p_Data.d_BCHand.Count == 0)
+        {
+            p_Data.d_BCHand.Add(-1);
+        }
 
     }
     public void TempPlayerDataSave()

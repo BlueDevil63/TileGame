@@ -33,6 +33,7 @@ public class PlayerAct : MonoBehaviour {
                 massage.text = "숲속으로 진입합니다";
                 break;
             default:
+                Debug.Log(mdata.data[player.pos_x, player.pos_y].type.ToString());
                 return false;
         }
         massageObject.SetActive(true);

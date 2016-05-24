@@ -119,7 +119,7 @@ public class CardScroll : ItemScroll {
 
     private void ChangeImage(Player player)
     {
-        TileCard _sprite = new TileCard(string.Empty, TileType.NONE, 0, string.Empty, null);
+        TileCard _sprite = new TileCard(0, string.Empty, TileType.NONE, 0, string.Empty, null);
 
         GameObject change;
 
@@ -138,7 +138,7 @@ public class CardScroll : ItemScroll {
                //Debug.Log("drawCard = "+i);
                 change = cardImage[i];
                 _sprite = player.handCard[i - 1];
-                change.GetComponent<Image>().sprite = Resources.Load<Sprite>("Card/" + _sprite.imageAddress);
+                change.GetComponent<Image>().sprite = Resources.Load<Sprite>(_sprite.imageAddress);
                 change.GetComponent<CardButton>().number = cardNum;
                 cardNum++;
             }
@@ -152,53 +152,4 @@ public class CardScroll : ItemScroll {
         }
     }
 
-}
-
-
-
-public class Deck
-{
-    public Stack<TileCard> deck;
-    
-    public void Init()
-    {
-        deck = new Stack<TileCard>();
-    }
-
-    public void Mix()
-    {
-        //List<string> dummy = new List<string>();
-        //임시용 더미
-        TempDeck temp = new TempDeck();
-        temp.Setting();
-
-        //중복 체크용
-        bool[] checkExistofNum = new bool[30];
-        for(int k =0; k < 30; k++)
-        {
-            checkExistofNum[k] = false;
-        }
-
-        for(int i = 0; i < 30;)
-        {
-            int nTemp = Random.Range(0, 29);
-            if(checkExistofNum[i] == false)
-            {
-                deck.Push(temp.deck[nTemp]);
-                checkExistofNum[i] = true;
-                i++;
-                
-            }
-        }
-
-    }
-    public TileCard Pop()
-    {
-        TileCard popCard = deck.Pop();
-        return popCard;
-    }
-    public void Push(TileCard card)
-    {
-        deck.Push(card);
-    }
 }

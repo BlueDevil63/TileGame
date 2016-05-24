@@ -10,19 +10,20 @@ namespace CardCollections
    
     public enum SkillType
     {
-        None,
+        Void,
         Knock,          //타격계
         Cut,            //절단계
-        Recovery,       //회복계
-        Buff,           //버프계
-        Guard,          //방어계
         Avoidence,      //회피계
+        Guard,          //방어계
+        Magic,          //마법계
+        Recovery,       //회복계
+        Spell,          //스펠계
         Extra           //특수계
     }
 
     public enum ElementType
     {
-        None,
+        Void,
         Fire,           //불속성
         Water,          //물속성
         Ice,            //얼음속성       
@@ -43,8 +44,9 @@ namespace CardCollections
 
         public BattleCard() { }
 
-        public BattleCard(string name, SkillType stype, ElementType etype, int id, string im, string address)
+        public BattleCard(int index, string name, SkillType stype, ElementType etype, int id, string im, string address)
         {
+            indexNumber = index;
             cardName = name;
             skillType = stype;
             elementType = etype;
@@ -61,74 +63,5 @@ namespace CardCollections
         public List<BattleCard> battleCards;
 
         public BattleCardLIst() { battleCards = new List<BattleCard>(); }
-    }
-}
-
-public class BattleDeck
-{
-    public Stack<BattleCard> deck;
-
-    public void Init()
-    {
-        deck = new Stack<BattleCard>();
-    }
-
-    public void Mix()
-    {
-        //List<string> dummy = new List<string>();
-        //임시용 더미
-        TempBattleDeck temp = new TempBattleDeck();
-        temp.Setting();
-
-        //중복 체크용
-        bool[] checkExistofNum = new bool[40];
-        for (int k = 0; k < 40; k++)
-        {
-            checkExistofNum[k] = false;
-        }
-
-        for (int i = 0; i < 40;)
-        {
-            int nTemp = Random.Range(0, 39);
-            if (checkExistofNum[i] == false)
-            {
-                deck.Push(temp.deck[nTemp]);
-                checkExistofNum[i] = true;
-                i++;
-
-            }
-        }
-
-    }
-    public BattleCard Pop()
-    {
-        BattleCard popCard = deck.Pop();
-        return popCard;
-    }
-    public void Push(BattleCard card)
-    {
-        deck.Push(card);
-    }
-}
-
-
-public class TempBattleDeck
-{
-    public List<BattleCard> deck;
-
-    private BattleCard cuttig = new BattleCard("Cutting", SkillType.Cut, ElementType.None, 1, "btCutting", null);
-    private BattleCard punch = new BattleCard("Punch", SkillType.Knock, ElementType.None, 2, "btGuard", null);
-    private BattleCard guard = new BattleCard("Guard", SkillType.Guard, ElementType.None, 3, "btPunch", null);
-    private BattleCard hpPortion = new BattleCard("hpPortion", SkillType.Recovery, ElementType.None, 4, "btHpPortion", null);
-
-
-    public void Init()
-    {
-        deck = new List<BattleCard>();
-    }
-
-    public void Setting()
-    {
-
     }
 }

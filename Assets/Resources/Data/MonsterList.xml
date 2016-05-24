@@ -5,8 +5,10 @@
       <charName>Evil Mushroom</charName>
       <level>1</level>
       <def>1.5</def>
-      <hp>1.5</hp>
-      <mp>1</mp>
+      <maxHp>1.5</maxHp>
+      <dHp>0</dHp>
+      <maxMp>1</maxMp>
+      <dMp>0</dMp>
       <modelAdress>ProtoAsset/Forest Creatures Pack/Evil Mushroom/Prefabs/Evil Mushroom-Blue</modelAdress>
       <attackList>
         <string>Punch</string>
@@ -24,8 +26,10 @@
       <charName>Nymph Fairy</charName>
       <level>1</level>
       <def>1.5</def>
-      <hp>1.5</hp>
-      <mp>1</mp>
+      <maxHp>1.5</maxHp>
+      <dHp>0</dHp>
+      <maxMp>1</maxMp>
+      <dMp>0</dMp>
       <modelAdress>ProtoAsset/Forest Creatures Pack/Nymph Fairy/Prefabs/Nymph Fairy-Blue</modelAdress>
       <attackList>
         <string>Punch</string>
@@ -43,8 +47,10 @@
       <charName>Forest Wolf</charName>
       <level>1</level>
       <def>1.5</def>
-      <hp>1.5</hp>
-      <mp>1</mp>
+      <maxHp>1.5</maxHp>
+      <dHp>0</dHp>
+      <maxMp>1</maxMp>
+      <dMp>0</dMp>
       <modelAdress>ProtoAsset/Forest Creatures Pack/Forest Wolf/Prefabs/Forest Wolf - Blue</modelAdress>
       <attackList>
         <string>Punch</string>
@@ -62,8 +68,10 @@
       <charName>Monster Bee</charName>
       <level>1</level>
       <def>1.5</def>
-      <hp>1.5</hp>
-      <mp>1</mp>
+      <maxHp>1.5</maxHp>
+      <dHp>0</dHp>
+      <maxMp>1</maxMp>
+      <dMp>0</dMp>
       <modelAdress>ProtoAsset/Forest Creatures Pack/Monster Bee/Prefabs/Monster Bee-Blue</modelAdress>
       <attackList>
         <string>Punch</string>
